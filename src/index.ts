@@ -21,8 +21,6 @@ export * from './platform';
 // View Models
 export * from './view_model';
 
-// Language
-export * from './lang';
 
 // Router
 export * from './router';

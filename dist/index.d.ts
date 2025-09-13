@@ -6,7 +6,6 @@ export * from './styles';
 export * from './global';
 export * from './platform';
 export * from './view_model';
-export * from './lang';
 export * from './router';
 export * from './screens';
 //# sourceMappingURL=index.d.ts.map

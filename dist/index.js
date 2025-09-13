@@ -29,8 +29,6 @@ __exportStar(require("./global"), exports);
 __exportStar(require("./platform"), exports);
 // View Models
 __exportStar(require("./view_model"), exports);
-// Language
-__exportStar(require("./lang"), exports);
 // Router
 __exportStar(require("./router"), exports);
 // Screens

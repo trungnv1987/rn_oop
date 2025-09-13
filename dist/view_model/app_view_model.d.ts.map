@@ -1,0 +1,1 @@
+{"version":3,"file":"app_view_model.d.ts","sourceRoot":"","sources":["../../src/view_model/app_view_model.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,aAAa,EAAE,kBAAkB,EAAY,MAAM,WAAW,CAAC;AAExE,MAAM,WAAW,iBAAkB,SAAQ,kBAAkB;CAC5D;AACD,8BAAsB,YAAY,CAChC,CAAC,SAAS,iBAAiB,CAC3B,SAAQ,aAAa,CAAC,CAAC,CAAC;gBACZ,KAAK,CAAC,EAAE,CAAC;CAItB"}

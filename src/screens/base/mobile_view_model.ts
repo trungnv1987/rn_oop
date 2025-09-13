@@ -1,0 +1,110 @@
+import {  NavigationProp } from '@react-navigation/native';
+import { NavigationParams, RouterType } from '../../router/routers';
+import { VoidCallback } from 'react_oop';
+import { AppViewModel, AppViewModelProps } from '../../view_model/app_view_model';
+
+interface _MobileViewModel {
+    pushScreen<T = any>(routeName: RouterType, params?: any): Promise<T | undefined>;
+    popToScreen(routeName: RouterType): void;
+    setNavigation(navigation: NavigationProp<NavigationParams>): void;
+}
+
+export class MobileViewModel extends AppViewModel<AppViewModelProps> {
+  protected navigation: NavigationProp<NavigationParams> | undefined;
+  private _focusListener?:VoidCallback;
+  private _blurListener?:VoidCallback;
+  private _stateListener?:VoidCallback;
+
+
+  private _originNavigationId: string | undefined;//navigationId of the origin screen
+  constructor(props?: AppViewModelProps) {
+    super(props);
+  }
+
+  async pushScreen<T = any>(routeName: RouterType, params?: any): Promise<T | undefined> {
+    try {
+      // Navigate to the screen
+      const navigationId = _generateNavigationId();
+      const param = {
+        ...params,
+        // navigationId,
+      }
+      this.navigation?.navigate(routeName as keyof NavigationParams, param);
+      this.navigation?.addListener('state', (event) => {
+        
+        console.log('pushScreen_state', event);
+      });
+      return param;
+    } catch (error) {
+      console.error('Navigation error:', error);
+      return undefined;
+    }
+  } 
+  
+  async popScreen({value}: {value?: any}) {
+    try {
+      // TODO: Implement result handling manually
+      this.navigation?.goBack();
+      return undefined;
+    } catch (error) {
+      console.error('Pop screen error:', error);
+      return undefined;
+    }
+  }
+
+  popToScreen(routeName: RouterType) {
+    this.navigation?.navigate(routeName as keyof NavigationParams, {
+      navigationId: this._originNavigationId,
+    });
+  }
+
+  setNavigation(navigation: NavigationProp<NavigationParams>) {
+    this.navigation = navigation;
+    this._setupNavigationListeners();
+    const state = navigation.getState();
+    const routes = state?.routes;
+    if(routes && routes.length > 0) {
+      const route = routes[routes.length - 1];
+      const params = (route as any)?.params;
+      if (params) {
+        this._originNavigationId = params.navigationId;
+      }
+    }
+  }
+   
+
+  private _setupNavigationListeners() {
+    if (!this.navigation) return;
+
+    // Clean up existing listeners
+    this._cleanupNavigationListeners();
+
+    // Listen for when this screen comes into focus (viewDidAppear)
+    this._focusListener = this.navigation.addListener('focus', () => {
+      this.viewDidAppear();
+    });
+
+    // Listen for when this screen goes out of focus (viewDidDisappear)
+    this._blurListener = this.navigation.addListener('blur', () => {
+      this.viewDidDisappear();
+    });
+
+    // Listen for navigation state changes (push/pop completion)
+    this._stateListener = this.navigation.addListener('state', (event) => {
+      // The focus/blur events will handle viewDidAppear/viewDidDisappear
+      // This listener is useful for additional navigation state tracking
+      console.log('Navigation state changed:', event);
+    });
+    
+  }
+  private _cleanupNavigationListeners() {
+      this._focusListener = undefined;
+      this._blurListener = undefined;
+      this._stateListener = undefined;
+  }
+
+}
+
+function _generateNavigationId() {
+  return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+}

@@ -1,14 +1,40 @@
 {
   "name": "rn_oop",
   "version": "0.0.1",
-  "private": true,
+  "description": "A React Native component library built with object-oriented programming principles",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "keywords": [
+    "react-native",
+    "components",
+    "ui",
+    "library",
+    "oop",
+    "typescript"
+  ],
+  "author": "Your Name <your.email@example.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-username/rn_oop.git"
+  },
+  "bugs": {
+    "url": "https://github.com/your-username/rn_oop/issues"
+  },
+  "homepage": "https://github.com/your-username/rn_oop#readme",
   "scripts": {
-    "android": "react-native run-android",
-    "ios": "react-native run-ios",
-    "lint": "eslint .",
-    "start": "react-native start",
+    "build": "tsc",
+    "build:watch": "tsc --watch",
+    "prepublishOnly": "npm run build",
+    "lint": "eslint src --ext .ts,.tsx",
+    "lint:fix": "eslint src --ext .ts,.tsx --fix",
     "test": "jest",
-    "build": "tsc"
+    "clean": "rm -rf dist"
   },
   "exports": {
     ".": {
@@ -17,14 +43,12 @@
       "require": "./dist/index.js",
       "import": "./dist/index.js",
       "default": "./dist/index.js"
-    },
-    "./exts": {
-      "types": "./dist/utils/exts.d.ts",
-      "node": "./dist/utils/exts.js",
-      "require": "./dist/utils/exts.js",
-      "import": "./dist/utils/exts.js",
-      "default": "./dist/utils/exts.js"
     }
+  },
+  "react-native": "src/index.ts",
+  "peerDependencies": {
+    "react": "19.1.0",
+    "react-native": "0.80.2"
   },
   "dependencies": {
     "@react-native-async-storage/async-storage": "^2.2.0",
@@ -33,10 +57,8 @@
     "@react-navigation/native-stack": "^7.3.25",
     "i18next": "^25.3.6",
     "lucide-react-native": "^0.539.0",
-    "react": "19.1.0",
     "react_oop": "git+https://trungnv1987@github.com/trungnv1987/react_oop.git",
     "react-i18next": "^15.6.1",
-    "react-native": "0.80.2",
     "react-native-encrypted-storage": "^4.0.3",
     "react-native-gesture-handler": "^2.28.0",
     "react-native-paper": "^5.14.5",
@@ -70,5 +92,8 @@
   },
   "engines": {
     "node": ">=18"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

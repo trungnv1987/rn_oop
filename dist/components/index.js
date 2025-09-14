@@ -25,7 +25,6 @@ __exportStar(require("./check/ui_check_box"), exports);
 __exportStar(require("./common/column"), exports);
 __exportStar(require("./common/expanded"), exports);
 __exportStar(require("./common/row"), exports);
-__exportStar(require("./common/safe_area"), exports);
 // Input Components
 __exportStar(require("./input/input"), exports);
 // Load More Components
@@ -39,3 +38,7 @@ __exportStar(require("./navigation_bar/navigation_bar"), exports);
 __exportStar(require("./search/not_found_label"), exports);
 // Separator Components
 __exportStar(require("./separator/separator"), exports);
+// Page View Components
+__exportStar(require("./page_view"), exports);
+// Page Indicator Components
+__exportStar(require("./ui_page_indicator"), exports);

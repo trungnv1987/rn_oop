@@ -12,7 +12,6 @@ export * from './check/ui_check_box';
 export * from './common/column';
 export * from './common/expanded';
 export * from './common/row';
-export * from './common/safe_area';
 
 // Input Components
 export * from './input/input';
@@ -32,3 +31,9 @@ export * from './search/not_found_label';
 
 // Separator Components
 export * from './separator/separator';
+
+// Page View Components
+export * from './page_view';
+
+// Page Indicator Components
+export * from './ui_page_indicator';

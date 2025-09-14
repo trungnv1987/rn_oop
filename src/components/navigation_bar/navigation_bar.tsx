@@ -4,7 +4,7 @@ import { ChevronLeft, Search } from "lucide-react-native";
 import { tabBarStyles } from "../../styles/_tabbar";
 import { GenericCallback, useDebounce } from "react_oop";
 import { Lang, LoadMoreController } from "react_oop";
-import { UIButton, UIInput, UIIconButton } from "../components";
+import { UIButton, UIInput, UIIconButton } from "../index";
 
 interface NavigationBarProps {
   title?: string;

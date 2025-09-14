@@ -1,6 +1,6 @@
 import React, { Context, ReactNode } from "react";
 import { AppScreen } from "react_oop";
-import { UIAvoidKeyboard, UILoading } from "../../components/components";
+import { UIAvoidKeyboard, UILoading } from "../../components";
 import { MobileViewModel } from "./mobile_view_model";
 
 export interface MobileScreenProps<VM extends MobileViewModel> {

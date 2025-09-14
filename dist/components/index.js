@@ -25,6 +25,7 @@ __exportStar(require("./check/ui_check_box"), exports);
 __exportStar(require("./common/column"), exports);
 __exportStar(require("./common/expanded"), exports);
 __exportStar(require("./common/row"), exports);
+__exportStar(require("./common/safe_area"), exports);
 // Input Components
 __exportStar(require("./input/input"), exports);
 // Load More Components

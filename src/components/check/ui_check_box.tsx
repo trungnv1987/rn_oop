@@ -11,7 +11,7 @@ import { Check } from "lucide-react-native";
 import { GenericCallback } from "react_oop";
 import { fonts, fontWeights } from "../../styles/_fonts";
 import { defaultTheme } from "../../theme/theme";
-import { Expanded, HorizontalSpacing, Row } from "../components";
+import { Expanded, HorizontalSpacing, Row } from "../index";
 import { spacing } from "../../styles/styles";
 
 interface UICheckBoxProps {

@@ -52,7 +52,7 @@ export function FutureBuilder<T>({ future, builder }: FutureBuilderProps<T>) {
     return () => {
       isMounted = false;
     };
-  }, [future]);
+  });
 
   return <>{builder({ data, state, error })}</>;
 }

@@ -36,7 +36,7 @@ function FutureBuilder({ future, builder }) {
         return () => {
             isMounted = false;
         };
-    }, [future]);
+    });
     return (0, jsx_runtime_1.jsx)(jsx_runtime_1.Fragment, { children: builder({ data, state, error }) });
 }
 exports.FutureBuilder = FutureBuilder;

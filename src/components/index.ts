@@ -37,3 +37,6 @@ export * from './page_view';
 
 // Page Indicator Components
 export * from './ui_page_indicator';
+
+// Future Builder Components
+export * from './future_builder/future_builder';

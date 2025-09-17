@@ -14,4 +14,5 @@ export * from './search/not_found_label';
 export * from './separator/separator';
 export * from './page_view';
 export * from './ui_page_indicator';
+export * from './future_builder/future_builder';
 //# sourceMappingURL=index.d.ts.map

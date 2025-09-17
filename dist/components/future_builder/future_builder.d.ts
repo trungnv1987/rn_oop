@@ -6,11 +6,13 @@ export declare enum FutureBuilderState {
 }
 export interface FutureBuilderProps<T> {
     future: Promise<T>;
-    builder: ({ data, state, error, }: {
-        data?: T;
-        state: FutureBuilderState;
-        error?: Error;
-    }) => ReactNode;
+    builder: (state: _FutureBuilderState<T>) => ReactNode;
+}
+interface _FutureBuilderState<T> {
+    state: FutureBuilderState;
+    data?: T;
+    error?: Error;
 }
 export declare function FutureBuilder<T>({ future, builder }: FutureBuilderProps<T>): import("react/jsx-runtime").JSX.Element;
+export {};
 //# sourceMappingURL=future_builder.d.ts.map

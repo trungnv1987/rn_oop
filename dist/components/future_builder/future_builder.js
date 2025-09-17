@@ -10,33 +10,21 @@ var FutureBuilderState;
     FutureBuilderState[FutureBuilderState["REJECTED"] = 2] = "REJECTED";
 })(FutureBuilderState = exports.FutureBuilderState || (exports.FutureBuilderState = {}));
 function FutureBuilder({ future, builder }) {
-    const [state, setState] = (0, react_1.useState)(FutureBuilderState.PENDING);
-    const [data, setData] = (0, react_1.useState)(undefined);
-    const [error, setError] = (0, react_1.useState)(undefined);
+    const [state, setState] = (0, react_1.useState)({
+        state: FutureBuilderState.PENDING,
+    });
     (0, react_1.useEffect)(() => {
-        let isMounted = true;
-        // Reset state when future changes
-        setState(FutureBuilderState.PENDING);
-        setData(undefined);
-        setError(undefined);
         future
             .then((result) => {
-            if (isMounted) {
-                setData(result);
-                setState(FutureBuilderState.FULFILLED);
-            }
+            setState({ state: FutureBuilderState.FULFILLED, data: result });
         })
             .catch((err) => {
-            if (isMounted) {
-                setError(err instanceof Error ? err : new Error(String(err)));
-                setState(FutureBuilderState.REJECTED);
-            }
+            setState({
+                state: FutureBuilderState.REJECTED,
+                error: err instanceof Error ? err : new Error(String(err)),
+            });
         });
-        // Cleanup function to prevent state updates on unmounted component
-        return () => {
-            isMounted = false;
-        };
-    });
-    return (0, jsx_runtime_1.jsx)(jsx_runtime_1.Fragment, { children: builder({ data, state, error }) });
+    }, []);
+    return (0, jsx_runtime_1.jsx)(jsx_runtime_1.Fragment, { children: builder(state) });
 }
 exports.FutureBuilder = FutureBuilder;

@@ -1,16 +1,15 @@
 import {  NavigationProp } from '@react-navigation/native';
-import { NavigationParams, RouterType } from '../../router/routers';
 import { VoidCallback } from 'react_oop';
 import { AppViewModel, AppViewModelProps } from '../../view_model/app_view_model';
 
 interface _MobileViewModel {
-    pushScreen<T = any>(routeName: RouterType, params?: any): Promise<T | undefined>;
-    popToScreen(routeName: RouterType): void;
-    setNavigation(navigation: NavigationProp<NavigationParams>): void;
+    pushScreen<T = any>(routeName: string, params?: any): Promise<T | undefined>;
+    popToScreen(routeName: string): void;
+    setNavigation(navigation: NavigationProp<any>): void;
 }
 
 export class MobileViewModel extends AppViewModel<AppViewModelProps> {
-  protected navigation: NavigationProp<NavigationParams> | undefined;
+  protected navigation: NavigationProp<any> | undefined;
   private _focusListener?:VoidCallback;
   private _blurListener?:VoidCallback;
   private _stateListener?:VoidCallback;
@@ -21,7 +20,7 @@ export class MobileViewModel extends AppViewModel<AppViewModelProps> {
     super(props);
   }
 
-  async pushScreen<T = any>(routeName: RouterType, params?: any): Promise<T | undefined> {
+  async pushScreen<T = any>(routeName: string, params?: any): Promise<T | undefined> {
     try {
       // Navigate to the screen
       const navigationId = _generateNavigationId();
@@ -29,7 +28,7 @@ export class MobileViewModel extends AppViewModel<AppViewModelProps> {
         ...params,
         // navigationId,
       }
-      this.navigation?.navigate(routeName as keyof NavigationParams, param);
+      this.navigation?.navigate(routeName, param);
       this.navigation?.addListener('state', (event) => {
         
         console.log('pushScreen_state', event);
@@ -52,13 +51,13 @@ export class MobileViewModel extends AppViewModel<AppViewModelProps> {
     }
   }
 
-  popToScreen(routeName: RouterType) {
-    this.navigation?.navigate(routeName as keyof NavigationParams, {
+  popToScreen(routeName: string) {
+    this.navigation?.navigate(routeName, {
       navigationId: this._originNavigationId,
     });
   }
 
-  setNavigation(navigation: NavigationProp<NavigationParams>) {
+  setNavigation(navigation: NavigationProp<any>) {
     this.navigation = navigation;
     this._setupNavigationListeners();
     const state = navigation.getState();

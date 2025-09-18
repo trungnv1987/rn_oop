@@ -40,3 +40,6 @@ export * from './ui_page_indicator';
 
 // Future Builder Components
 export * from './future_builder/future_builder';
+
+// Loading Components
+export * from './loading/loading_indicator';

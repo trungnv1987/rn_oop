@@ -28,6 +28,7 @@ export function FutureBuilder<T>({ future, builder }: FutureBuilderProps<T>) {
         setState({ state: FutureBuilderState.FULFILLED, data: result });
       })
       .catch((err) => {
+        console.error(`Error in FutureBuilder: ${err}`);
         setState({
           state: FutureBuilderState.REJECTED,
           error: err instanceof Error ? err : new Error(String(err)),

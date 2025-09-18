@@ -15,4 +15,5 @@ export * from './separator/separator';
 export * from './page_view';
 export * from './ui_page_indicator';
 export * from './future_builder/future_builder';
+export * from './loading/loading_indicator';
 //# sourceMappingURL=index.d.ts.map

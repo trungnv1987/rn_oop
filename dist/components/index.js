@@ -44,3 +44,5 @@ __exportStar(require("./page_view"), exports);
 __exportStar(require("./ui_page_indicator"), exports);
 // Future Builder Components
 __exportStar(require("./future_builder/future_builder"), exports);
+// Loading Components
+__exportStar(require("./loading/loading_indicator"), exports);

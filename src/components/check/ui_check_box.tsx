@@ -12,7 +12,7 @@ import { GenericCallback } from "react_oop";
 import { fonts, fontWeights } from "../../styles/_fonts";
 import { defaultTheme } from "../../theme/theme";
 import { Expanded, HorizontalSpacing, Row } from "../index";
-import { spacing } from "../../styles/styles";
+import { sizes } from "../../styles/styles";
 
 interface UICheckBoxProps {
   selected?: boolean;
@@ -53,7 +53,7 @@ export function UICheckBox({
     >
       <Row
         crossAxisAlignment="center"
-        separator={<HorizontalSpacing size={spacing.sm} />}
+        separator={<HorizontalSpacing size={sizes.sm} />}
       >
         <View
           style={[

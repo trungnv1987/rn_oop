@@ -12,6 +12,7 @@ export * from './check/ui_check_box';
 export * from './common/column';
 export * from './common/expanded';
 export * from './common/row';
+export * from './common/wrap';
 
 // Input Components
 export * from './input/input';

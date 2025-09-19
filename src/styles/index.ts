@@ -9,3 +9,6 @@ export * from './_tabbar';
 
 // Main Styles
 export * from './styles';
+
+// Body Container Styles
+export * from './_container';

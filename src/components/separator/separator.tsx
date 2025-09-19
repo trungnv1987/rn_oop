@@ -1,7 +1,7 @@
 import React from "react";
 import { View, StyleSheet } from "react-native";
 import { defaultTheme } from "../../theme/theme";
-import { spacing } from "../../styles/_sizes";
+import { sizes } from "../../styles/_sizes";
 
 interface SeparatorProps {
   padding?: number;
@@ -31,11 +31,11 @@ function _Spacing({
   );
 }
 
-export function HorizontalSpacing({ size = spacing.md }: { size?: number }) {
+export function HorizontalSpacing({ size = sizes.md }: { size?: number }) {
   return <_Spacing isHorizontal={true} size={size} />;
 }
 
-export function VerticalSpacing({ size = spacing.md }: { size?: number }) {
+export function VerticalSpacing({ size = sizes.md }: { size?: number }) {
   return <_Spacing isHorizontal={false} size={size} />;
 }
 

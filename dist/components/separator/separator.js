@@ -16,11 +16,11 @@ function _Spacing({ isHorizontal, size = 10, }) {
             },
         ] }));
 }
-function HorizontalSpacing({ size = _sizes_1.spacing.md }) {
+function HorizontalSpacing({ size = _sizes_1.sizes.md }) {
     return (0, jsx_runtime_1.jsx)(_Spacing, { isHorizontal: true, size: size });
 }
 exports.HorizontalSpacing = HorizontalSpacing;
-function VerticalSpacing({ size = _sizes_1.spacing.md }) {
+function VerticalSpacing({ size = _sizes_1.sizes.md }) {
     return (0, jsx_runtime_1.jsx)(_Spacing, { isHorizontal: false, size: size });
 }
 exports.VerticalSpacing = VerticalSpacing;

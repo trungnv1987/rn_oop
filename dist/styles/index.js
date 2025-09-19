@@ -22,3 +22,5 @@ __exportStar(require("./_sizes"), exports);
 __exportStar(require("./_tabbar"), exports);
 // Main Styles
 __exportStar(require("./styles"), exports);
+// Body Container Styles
+__exportStar(require("./_container"), exports);

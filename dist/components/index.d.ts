@@ -5,6 +5,7 @@ export * from './check/ui_check_box';
 export * from './common/column';
 export * from './common/expanded';
 export * from './common/row';
+export * from './common/wrap';
 export * from './input/input';
 export * from './load_more/load_more_listview_builder';
 export * from './load_more/load_more_listview';

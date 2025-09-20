@@ -1,40 +1,42 @@
 import {  NavigationProp } from '@react-navigation/native';
-import { VoidCallback } from 'react_oop';
-import { AppViewModel, AppViewModelProps } from '../../view_model/app_view_model';
+import { BaseViewModel,  GenericCallback, VoidCallback } from 'react_oop';
+import { BaseScreenParams } from '../../router';
 
+export interface MobileViewModelProps extends BaseScreenParams{
+}
 interface _MobileViewModel {
     pushScreen<T = any>(routeName: string, params?: any): Promise<T | undefined>;
     popToScreen(routeName: string): void;
     setNavigation(navigation: NavigationProp<any>): void;
 }
 
-export class MobileViewModel<P extends AppViewModelProps=AppViewModelProps> extends AppViewModel<P> {
+export class MobileViewModel<P extends MobileViewModelProps=MobileViewModelProps> extends BaseViewModel<P> {
   protected navigation: NavigationProp<any> | undefined;
   private _focusListener?:VoidCallback;
   private _blurListener?:VoidCallback;
   private _stateListener?:VoidCallback;
 
+  get _onReturn(): GenericCallback<any> | undefined {
+    return this.props?.onReturn;
+  }
+
 
   private _originNavigationId: string | undefined;//navigationId of the origin screen
   
   async pushScreen<T = any>(routeName: string, params?: any): Promise<T | undefined> {
-    try {
-      // Navigate to the screen
-      const navigationId = _generateNavigationId();
-      const param = {
-        ...params,
-        // navigationId,
-      }
-      this.navigation?.navigate(routeName, param);
-      this.navigation?.addListener('state', (event) => {
-        
-        console.log('pushScreen_state', event);
-      });
-      return param;
-    } catch (error) {
-      console.error('Navigation error:', error);
-      return undefined;
+    
+    const onReturn = (value: T|undefined) => {
+      this._onReturn?.(value);
     }
+    const param = {
+      ...params,
+      onReturn:onReturn,
+    }
+    this.navigation?.navigate(routeName, param);
+    this.navigation?.addListener('state', (event) => {
+      console.log('pushScreen_state', event);
+    });
+    return param;
   } 
   
   async popScreen({value}: {value?: any}) {

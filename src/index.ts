@@ -18,8 +18,6 @@ export * from './global';
 // Platform
 export * from './platform';
 
-// View Models
-export * from './view_model';
 
 
 // Router

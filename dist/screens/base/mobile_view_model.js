@@ -1,24 +1,24 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.MobileViewModel = void 0;
-const app_view_model_1 = require("../../view_model/app_view_model");
-class MobileViewModel extends app_view_model_1.AppViewModel {
+const react_oop_1 = require("react_oop");
+class MobileViewModel extends react_oop_1.BaseViewModel {
+    get _onReturn() {
+        var _a;
+        return (_a = this.props) === null || _a === void 0 ? void 0 : _a.onReturn;
+    }
     async pushScreen(routeName, params) {
         var _a, _b;
-        try {
-            // Navigate to the screen
-            const navigationId = _generateNavigationId();
-            const param = Object.assign({}, params);
-            (_a = this.navigation) === null || _a === void 0 ? void 0 : _a.navigate(routeName, param);
-            (_b = this.navigation) === null || _b === void 0 ? void 0 : _b.addListener('state', (event) => {
-                console.log('pushScreen_state', event);
-            });
-            return param;
-        }
-        catch (error) {
-            console.error('Navigation error:', error);
-            return undefined;
-        }
+        const onReturn = (value) => {
+            var _a;
+            (_a = this._onReturn) === null || _a === void 0 ? void 0 : _a.call(this, value);
+        };
+        const param = Object.assign(Object.assign({}, params), { onReturn: onReturn });
+        (_a = this.navigation) === null || _a === void 0 ? void 0 : _a.navigate(routeName, param);
+        (_b = this.navigation) === null || _b === void 0 ? void 0 : _b.addListener('state', (event) => {
+            console.log('pushScreen_state', event);
+        });
+        return param;
     }
     async popScreen({ value }) {
         var _a;

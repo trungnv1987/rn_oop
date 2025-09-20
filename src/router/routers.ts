@@ -1,5 +1,5 @@
 import { NativeStackNavigationOptions } from "@react-navigation/native-stack";
-import { Lang } from "react_oop";
+import { GenericCallback, Lang } from "react_oop";
 
 
   export const modalScreenOptions: NativeStackNavigationOptions = {
@@ -9,3 +9,8 @@ import { Lang } from "react_oop";
     presentation: 'modal',
     headerBackTitle: Lang.localize('common.back'),
   }
+
+  export interface BaseScreenParams {
+    onReturn?: GenericCallback<any>;
+  }
+  

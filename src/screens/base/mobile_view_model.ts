@@ -35,8 +35,10 @@ export class MobileViewModel<P extends MobileViewModelProps=MobileViewModelProps
     return param;
   } 
   
+  _popedValue?: any;
   async popScreen({value}: {value?: any}) {
-    this._onReturn?.(value);
+    // this._onReturn?.(value);
+    this._popedValue = value;    
     this.navigation?.goBack();
     
   }
@@ -82,7 +84,7 @@ export class MobileViewModel<P extends MobileViewModelProps=MobileViewModelProps
     this._stateListener = this.navigation.addListener('state', (event) => {
       // The focus/blur events will handle viewDidAppear/viewDidDisappear
       // This listener is useful for additional navigation state tracking
-      console.log('Navigation state changed:', event);
+      console.log(`${this.constructor.name}: NavigationStateChanged: ` + event);
     });
     
   }

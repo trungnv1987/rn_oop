@@ -84,7 +84,7 @@ export class MobileViewModel<P extends MobileViewModelProps=MobileViewModelProps
     this._stateListener = this.navigation.addListener('state', (event) => {
       // The focus/blur events will handle viewDidAppear/viewDidDisappear
       // This listener is useful for additional navigation state tracking
-      console.log(`${this.constructor.name}: NavigationStateChanged: ` + event);
+      console.log(`${this.constructor.name}: NavigationStateChanged: ` + JSON.stringify(event));
     });
     
   }

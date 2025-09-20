@@ -15,6 +15,7 @@ export class MobileViewModel<P extends MobileViewModelProps=MobileViewModelProps
   private _focusListener?:VoidCallback;
   private _blurListener?:VoidCallback;
   private _stateListener?:VoidCallback;
+  private _currentRouteKey: string | undefined;
 
   get _onReturn(): GenericCallback<any> | undefined {
     return this.props?.onReturn;
@@ -60,10 +61,23 @@ export class MobileViewModel<P extends MobileViewModelProps=MobileViewModelProps
       if (params) {
         this._originNavigationId = params.navigationId;
       }
+      // Store current route key for pop detection
+      this._currentRouteKey = route.key;
     }
   }
    
 
+  viewDidAppear(isCreated: boolean): void {
+    super.viewDidAppear(isCreated);
+    console.log(`${this.constructor.name}: viewDidAppear: isCreated` + isCreated);
+  }
+
+  viewDidDisappear(isDismissed: boolean): void {
+    super.viewDidDisappear(isDismissed);
+    console.log(`${this.constructor.name}: viewDidDisappear: isDismissed` + isDismissed);
+  }
+
+  _isCreated?:boolean;
   private _setupNavigationListeners() {
     if (!this.navigation) return;
 
@@ -72,21 +86,40 @@ export class MobileViewModel<P extends MobileViewModelProps=MobileViewModelProps
 
     // Listen for when this screen comes into focus (viewDidAppear)
     this._focusListener = this.navigation.addListener('focus', () => {
-      this.viewDidAppear();
+      if(this._isCreated == undefined) {
+        this.viewDidAppear(true);
+        this._isCreated = true;
+      }else {
+        this.viewDidAppear(false);
+      }
+      
     });
 
     // Listen for when this screen goes out of focus (viewDidDisappear)
     this._blurListener = this.navigation.addListener('blur', () => {
-      this.viewDidDisappear();
+      const currentState = this.navigation?.getState();
+        const routes = currentState?.routes || [];
+        
+        // Check if current route key still exists in the navigation stack
+        const routeExists = routes.some(route => route.key === this._currentRouteKey);
+        const isDismissed = !routeExists && this._currentRouteKey != undefined;
+      this.viewDidDisappear(isDismissed);
+      
+      // Check if this blur event is due to this screen being popped
+      // We need to check this after viewDidDisappear to ensure proper lifecycle order
+      
     });
 
     // Listen for navigation state changes (push/pop completion)
     this._stateListener = this.navigation.addListener('state', (event) => {
-      // The focus/blur events will handle viewDidAppear/viewDidDisappear
-      // This listener is useful for additional navigation state tracking
-      console.log(`${this.constructor.name}: NavigationStateChanged: ` + JSON.stringify(event,null,2));
+      // Log navigation state changes for debugging
+      const currentState = this.navigation?.getState();
+      const routes = currentState?.routes || [];
+      const routeExists = routes.some(route => route.key === this._currentRouteKey);
+      
+      console.log(`${this.constructor.name}: NavigationStateChanged - RouteKey: ${this._currentRouteKey}, Exists: ${routeExists}, Total Routes: ${routes.length}`);
     });
-    
+        
   }
   private _cleanupNavigationListeners() {
       this._focusListener = undefined;

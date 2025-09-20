@@ -37,3 +37,6 @@ commit:
 	git commit -m "$$msg"; \
 	git push
 
+
+react_oop:
+	npm i react_oop --force

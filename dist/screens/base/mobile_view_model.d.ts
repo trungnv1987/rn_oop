@@ -8,6 +8,7 @@ export declare class MobileViewModel<P extends MobileViewModelProps = MobileView
     private _focusListener?;
     private _blurListener?;
     private _stateListener?;
+    private _currentRouteKey;
     get _onReturn(): GenericCallback<any> | undefined;
     private _originNavigationId;
     pushScreen<T = any>(routeName: string, params?: any): Promise<T | undefined>;
@@ -17,6 +18,9 @@ export declare class MobileViewModel<P extends MobileViewModelProps = MobileView
     }): Promise<void>;
     popToScreen(routeName: string): void;
     setNavigation(navigation: NavigationProp<any>): void;
+    viewDidAppear(isCreated: boolean): void;
+    viewDidDisappear(isDismissed: boolean): void;
+    _isCreated?: boolean;
     private _setupNavigationListeners;
     private _cleanupNavigationListeners;
 }

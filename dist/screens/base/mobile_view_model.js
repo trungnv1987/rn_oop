@@ -43,14 +43,6 @@ class MobileViewModel extends react_oop_1.BaseViewModel {
             this._currentRouteKey = route.key;
         }
     }
-    viewDidAppear(isCreated) {
-        super.viewDidAppear(isCreated);
-        console.log(`${this.constructor.name}: viewDidAppear: isCreated ` + isCreated);
-    }
-    viewDidDisappear(isDismissed) {
-        super.viewDidDisappear(isDismissed);
-        console.log(`${this.constructor.name}: viewDidDisappear: isDismissed ` + isDismissed);
-    }
     _setupNavigationListeners() {
         if (!this.navigation)
             return;

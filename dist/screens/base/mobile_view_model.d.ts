@@ -18,8 +18,6 @@ export declare class MobileViewModel<P extends MobileViewModelProps = MobileView
     }): Promise<void>;
     popToScreen(routeName: string): void;
     setNavigation(navigation: NavigationProp<any>): void;
-    viewDidAppear(isCreated: boolean): void;
-    viewDidDisappear(isDismissed: boolean): void;
     _isCreated?: boolean;
     private _setupNavigationListeners;
     private _cleanupNavigationListeners;

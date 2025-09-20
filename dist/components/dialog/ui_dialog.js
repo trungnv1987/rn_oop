@@ -19,10 +19,11 @@ function UIDialog(props) {
             }
             const { onFinished } = controller;
             const visible = value != undefined;
-            const handleConfirm = () => {
+            const confirmPressed = () => {
+                controller.hide();
                 onFinished === null || onFinished === void 0 ? void 0 : onFinished(true);
             };
-            const handleCancel = () => {
+            const cancelPressed = () => {
                 controller.hide();
                 onFinished === null || onFinished === void 0 ? void 0 : onFinished(false);
             };
@@ -34,13 +35,13 @@ function UIDialog(props) {
             };
             return ((0, jsx_runtime_1.jsx)(react_native_1.Modal, Object.assign({ visible: visible, transparent: true, animationType: "fade", onDismiss: () => {
                     backgroundPressed();
-                }, onRequestClose: backgroundPressed }, { children: (0, jsx_runtime_1.jsx)(react_native_1.TouchableOpacity, Object.assign({ onPress: backgroundPressed, style: styles.backdrop, activeOpacity: 1 }, { children: (0, jsx_runtime_1.jsx)(react_native_1.TouchableOpacity, Object.assign({ activeOpacity: 1, onPress: () => { } }, { children: (0, jsx_runtime_1.jsxs)(react_native_1.View, Object.assign({ style: [styles.container, containerStyle] }, { children: [title && ((0, jsx_runtime_1.jsx)(react_native_1.View, Object.assign({ style: styles.titleContainer }, { children: (0, jsx_runtime_1.jsx)(react_native_1.Text, Object.assign({ style: styles.title }, { children: title })) }))), message && ((0, jsx_runtime_1.jsx)(react_native_1.View, Object.assign({ style: styles.messageContainer }, { children: (0, jsx_runtime_1.jsx)(react_native_1.Text, Object.assign({ style: styles.message }, { children: message })) }))), (0, jsx_runtime_1.jsxs)(index_1.Row, Object.assign({ style: styles.buttonsContainer, gap: styles_1.sizes.md }, { children: [(0, jsx_runtime_1.jsx)(index_1.Expanded, { children: (0, jsx_runtime_1.jsx)(index_1.UIButton, { textStyle: { color: "black" }, title: cancelText || react_oop_1.Lang.localize("common.cancel"), onPress: handleCancel, style: react_native_1.StyleSheet.flatten([
+                }, onRequestClose: backgroundPressed }, { children: (0, jsx_runtime_1.jsx)(react_native_1.TouchableOpacity, Object.assign({ onPress: backgroundPressed, style: styles.backdrop, activeOpacity: 1 }, { children: (0, jsx_runtime_1.jsx)(react_native_1.TouchableOpacity, Object.assign({ activeOpacity: 1, onPress: () => { } }, { children: (0, jsx_runtime_1.jsxs)(react_native_1.View, Object.assign({ style: [styles.container, containerStyle] }, { children: [title && ((0, jsx_runtime_1.jsx)(react_native_1.View, Object.assign({ style: styles.titleContainer }, { children: (0, jsx_runtime_1.jsx)(react_native_1.Text, Object.assign({ style: styles.title }, { children: title })) }))), message && ((0, jsx_runtime_1.jsx)(react_native_1.View, Object.assign({ style: styles.messageContainer }, { children: (0, jsx_runtime_1.jsx)(react_native_1.Text, Object.assign({ style: styles.message }, { children: message })) }))), (0, jsx_runtime_1.jsxs)(index_1.Row, Object.assign({ style: styles.buttonsContainer, gap: styles_1.sizes.md }, { children: [(0, jsx_runtime_1.jsx)(index_1.Expanded, { children: (0, jsx_runtime_1.jsx)(index_1.UIButton, { textStyle: { color: "black" }, title: cancelText || react_oop_1.Lang.localize("common.cancel"), onPress: cancelPressed, style: react_native_1.StyleSheet.flatten([
                                                     styles.button,
                                                     styles.cancelButton,
                                                 ]) }) }), (0, jsx_runtime_1.jsx)(index_1.Expanded, { children: (0, jsx_runtime_1.jsx)(index_1.UIButton, { title: confirmText ||
                                                     (isDelete
                                                         ? react_oop_1.Lang.localize("action.delete")
-                                                        : react_oop_1.Lang.localize("common.confirm")), onPress: handleConfirm, style: react_native_1.StyleSheet.flatten([
+                                                        : react_oop_1.Lang.localize("common.confirm")), onPress: confirmPressed, style: react_native_1.StyleSheet.flatten([
                                                     styles.button,
                                                     isDelete ? styles.deleteButton : styles.confirmButton,
                                                 ]) }) })] }))] })) })) })) })));

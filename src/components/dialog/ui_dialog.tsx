@@ -35,11 +35,12 @@ export function UIDialog(props: UIDialogProps) {
         const { onFinished } = controller;
         const visible = value != undefined;
 
-        const handleConfirm = () => {
+        const confirmPressed = () => {
+          controller.hide();
           onFinished?.(true);
         };
 
-        const handleCancel = () => {
+        const cancelPressed = () => {
           controller.hide();
           onFinished?.(false);
         };
@@ -88,7 +89,7 @@ export function UIDialog(props: UIDialogProps) {
                       <UIButton
                         textStyle={{ color: "black" }}
                         title={cancelText || Lang.localize("common.cancel")}
-                        onPress={handleCancel}
+                        onPress={cancelPressed}
                         style={StyleSheet.flatten([
                           styles.button,
                           styles.cancelButton,
@@ -103,7 +104,7 @@ export function UIDialog(props: UIDialogProps) {
                             ? Lang.localize("action.delete")
                             : Lang.localize("common.confirm"))
                         }
-                        onPress={handleConfirm}
+                        onPress={confirmPressed}
                         style={StyleSheet.flatten([
                           styles.button,
                           isDelete ? styles.deleteButton : styles.confirmButton,

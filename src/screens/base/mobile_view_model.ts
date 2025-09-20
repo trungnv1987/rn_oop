@@ -69,12 +69,12 @@ export class MobileViewModel<P extends MobileViewModelProps=MobileViewModelProps
 
   viewDidAppear(isCreated: boolean): void {
     super.viewDidAppear(isCreated);
-    console.log(`${this.constructor.name}: viewDidAppear: isCreated` + isCreated);
+    console.log(`${this.constructor.name}: viewDidAppear: isCreated ` + isCreated);
   }
 
   viewDidDisappear(isDismissed: boolean): void {
     super.viewDidDisappear(isDismissed);
-    console.log(`${this.constructor.name}: viewDidDisappear: isDismissed` + isDismissed);
+    console.log(`${this.constructor.name}: viewDidDisappear: isDismissed ` + isDismissed);
   }
 
   _isCreated?:boolean;

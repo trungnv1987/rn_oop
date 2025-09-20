@@ -45,11 +45,11 @@ class MobileViewModel extends react_oop_1.BaseViewModel {
     }
     viewDidAppear(isCreated) {
         super.viewDidAppear(isCreated);
-        console.log(`${this.constructor.name}: viewDidAppear: isCreated` + isCreated);
+        console.log(`${this.constructor.name}: viewDidAppear: isCreated ` + isCreated);
     }
     viewDidDisappear(isDismissed) {
         super.viewDidDisappear(isDismissed);
-        console.log(`${this.constructor.name}: viewDidDisappear: isDismissed` + isDismissed);
+        console.log(`${this.constructor.name}: viewDidDisappear: isDismissed ` + isDismissed);
     }
     _setupNavigationListeners() {
         if (!this.navigation)

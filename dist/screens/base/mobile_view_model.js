@@ -9,11 +9,7 @@ class MobileViewModel extends react_oop_1.BaseViewModel {
     }
     async pushScreen(routeName, params) {
         var _a, _b;
-        const onReturn = (value) => {
-            var _a;
-            (_a = this._onReturn) === null || _a === void 0 ? void 0 : _a.call(this, value);
-        };
-        const param = Object.assign(Object.assign({}, params), { onReturn: onReturn });
+        const param = Object.assign({}, params);
         (_a = this.navigation) === null || _a === void 0 ? void 0 : _a.navigate(routeName, param);
         (_b = this.navigation) === null || _b === void 0 ? void 0 : _b.addListener('state', (event) => {
             console.log('pushScreen_state', event);
@@ -22,15 +18,9 @@ class MobileViewModel extends react_oop_1.BaseViewModel {
     }
     async popScreen({ value }) {
         var _a;
-        try {
-            // TODO: Implement result handling manually
-            (_a = this.navigation) === null || _a === void 0 ? void 0 : _a.goBack();
-            return undefined;
-        }
-        catch (error) {
-            console.error('Pop screen error:', error);
-            return undefined;
-        }
+        // this._onReturn?.(value);
+        this._popedValue = value;
+        (_a = this.navigation) === null || _a === void 0 ? void 0 : _a.goBack();
     }
     popToScreen(routeName) {
         var _a;
@@ -68,7 +58,7 @@ class MobileViewModel extends react_oop_1.BaseViewModel {
         this._stateListener = this.navigation.addListener('state', (event) => {
             // The focus/blur events will handle viewDidAppear/viewDidDisappear
             // This listener is useful for additional navigation state tracking
-            console.log('Navigation state changed:', event);
+            console.log(`${this.constructor.name}: NavigationStateChanged: ` + event);
         });
     }
     _cleanupNavigationListeners() {

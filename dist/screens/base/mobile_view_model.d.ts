@@ -11,9 +11,10 @@ export declare class MobileViewModel<P extends MobileViewModelProps = MobileView
     get _onReturn(): GenericCallback<any> | undefined;
     private _originNavigationId;
     pushScreen<T = any>(routeName: string, params?: any): Promise<T | undefined>;
+    _popedValue?: any;
     popScreen({ value }: {
         value?: any;
-    }): Promise<undefined>;
+    }): Promise<void>;
     popToScreen(routeName: string): void;
     setNavigation(navigation: NavigationProp<any>): void;
     private _setupNavigationListeners;

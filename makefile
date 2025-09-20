@@ -31,6 +31,7 @@ build:
 	
 
 commit:
+	npm run build
 	@read -p "Enter commit message: " msg; \
 	git add .; \
 	git commit -m "$$msg"; \

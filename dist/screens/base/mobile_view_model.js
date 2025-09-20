@@ -58,7 +58,7 @@ class MobileViewModel extends react_oop_1.BaseViewModel {
         this._stateListener = this.navigation.addListener('state', (event) => {
             // The focus/blur events will handle viewDidAppear/viewDidDisappear
             // This listener is useful for additional navigation state tracking
-            console.log(`${this.constructor.name}: NavigationStateChanged: ` + JSON.stringify(event));
+            console.log(`${this.constructor.name}: NavigationStateChanged: ` + JSON.stringify(event, null, 2));
         });
     }
     _cleanupNavigationListeners() {

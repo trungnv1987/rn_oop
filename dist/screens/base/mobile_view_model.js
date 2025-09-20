@@ -3,9 +3,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.MobileViewModel = void 0;
 const app_view_model_1 = require("../../view_model/app_view_model");
 class MobileViewModel extends app_view_model_1.AppViewModel {
-    constructor(props) {
-        super(props);
-    }
     async pushScreen(routeName, params) {
         var _a, _b;
         try {

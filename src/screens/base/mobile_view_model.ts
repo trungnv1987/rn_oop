@@ -8,7 +8,7 @@ interface _MobileViewModel {
     setNavigation(navigation: NavigationProp<any>): void;
 }
 
-export class MobileViewModel extends AppViewModel<AppViewModelProps> {
+export class MobileViewModel<P extends AppViewModelProps=AppViewModelProps> extends AppViewModel<P> {
   protected navigation: NavigationProp<any> | undefined;
   private _focusListener?:VoidCallback;
   private _blurListener?:VoidCallback;
@@ -16,10 +16,7 @@ export class MobileViewModel extends AppViewModel<AppViewModelProps> {
 
 
   private _originNavigationId: string | undefined;//navigationId of the origin screen
-  constructor(props?: AppViewModelProps) {
-    super(props);
-  }
-
+  
   async pushScreen<T = any>(routeName: string, params?: any): Promise<T | undefined> {
     try {
       // Navigate to the screen

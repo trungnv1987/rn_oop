@@ -18,7 +18,6 @@ class MobileViewModel extends react_oop_1.BaseViewModel {
     }
     async popScreen({ value }) {
         var _a;
-        // this._onReturn?.(value);
         this._popedValue = value;
         (_a = this.navigation) === null || _a === void 0 ? void 0 : _a.goBack();
     }
@@ -79,6 +78,11 @@ class MobileViewModel extends react_oop_1.BaseViewModel {
             const routeExists = routes.some(route => route.key === this._currentRouteKey);
             console.log(`${this.constructor.name}: NavigationStateChanged - RouteKey: ${this._currentRouteKey}, Exists: ${routeExists}, Total Routes: ${routes.length}`);
         });
+    }
+    viewDidDisappear(isDismissed) {
+        var _a;
+        super.viewDidDisappear(isDismissed);
+        (_a = this._onReturn) === null || _a === void 0 ? void 0 : _a.call(this, this._popedValue);
     }
     _cleanupNavigationListeners() {
         this._focusListener = undefined;

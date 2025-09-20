@@ -20,6 +20,7 @@ export declare class MobileViewModel<P extends MobileViewModelProps = MobileView
     setNavigation(navigation: NavigationProp<any>): void;
     _isCreated?: boolean;
     private _setupNavigationListeners;
+    viewDidDisappear(isDismissed: boolean): void;
     private _cleanupNavigationListeners;
 }
 //# sourceMappingURL=mobile_view_model.d.ts.map

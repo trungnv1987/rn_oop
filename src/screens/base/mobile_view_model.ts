@@ -25,12 +25,8 @@ export class MobileViewModel<P extends MobileViewModelProps=MobileViewModelProps
   
   async pushScreen<T = any>(routeName: string, params?: any): Promise<T | undefined> {
     
-    const onReturn = (value: T|undefined) => {
-      this._onReturn?.(value);
-    }
     const param = {
-      ...params,
-      onReturn:onReturn,
+      ...params,      
     }
     this.navigation?.navigate(routeName, param);
     this.navigation?.addListener('state', (event) => {
@@ -40,14 +36,9 @@ export class MobileViewModel<P extends MobileViewModelProps=MobileViewModelProps
   } 
   
   async popScreen({value}: {value?: any}) {
-    try {
-      // TODO: Implement result handling manually
-      this.navigation?.goBack();
-      return undefined;
-    } catch (error) {
-      console.error('Pop screen error:', error);
-      return undefined;
-    }
+    this._onReturn?.(value);
+    this.navigation?.goBack();
+    
   }
 
   popToScreen(routeName: string) {

@@ -2,6 +2,7 @@ import React, { Context, ReactNode } from "react";
 import { AppScreen } from "react_oop";
 import { UIAvoidKeyboard, UILoading } from "../../components";
 import { MobileViewModel } from "./mobile_view_model";
+import { UIDialog } from "../../components/dialog/ui_dialog";
 
 export interface MobileScreenProps<VM extends MobileViewModel> {
   viewModel: VM;
@@ -19,6 +20,7 @@ export function MobileScreen<VM extends MobileViewModel>({
       <UIAvoidKeyboard>
         <UILoading cubit={viewModel.loadingCubit}>{children}</UILoading>
       </UIAvoidKeyboard>
+      <UIDialog controller={viewModel.dialogController} />
     </AppScreen>
   );
 }

@@ -1,6 +1,7 @@
 import { NavigationProp } from '@react-navigation/native';
-import { BaseViewModel, GenericCallback, VoidCallback } from 'react_oop';
+import { BaseViewModel, GenericCallback, Lang, VoidCallback } from 'react_oop';
 import { BaseScreenParams } from '../../router';
+import { UIDialogController, UIDialogDisplayProps } from '../../components/dialog/ui_dialog_controller';
 
 export interface MobileViewModelProps extends BaseScreenParams {
 }
@@ -8,6 +9,7 @@ interface _MobileViewModel {
   pushScreen<T = any>(routeName: string, params?: any): Promise<T | undefined>;
   popToScreen(routeName: string): void;
   setNavigation(navigation: NavigationProp<any>): void;
+  showConfirmDialog(props: UIDialogDisplayProps): Promise<boolean | undefined>;
 }
 
 export class MobileViewModel<P extends MobileViewModelProps = MobileViewModelProps> extends BaseViewModel<P> {
@@ -17,6 +19,7 @@ export class MobileViewModel<P extends MobileViewModelProps = MobileViewModelPro
   private _stateListener?: VoidCallback;
   private _currentRouteKey: string | undefined;
 
+  dialogController = new UIDialogController();
   get _onReturn(): GenericCallback<any> | undefined {
     return this.props?.onReturn;
   }
@@ -30,9 +33,9 @@ export class MobileViewModel<P extends MobileViewModelProps = MobileViewModelPro
       ...params,
     }
     this.navigation?.navigate(routeName, param);
-    this.navigation?.addListener('state', (event) => {
-      console.log('pushScreen_state', event);
-    });
+    // this.navigation?.addListener('state', (event) => {
+    //   console.log('pushScreen_state', event);
+    // });
     return param;
   }
 
@@ -47,6 +50,25 @@ export class MobileViewModel<P extends MobileViewModelProps = MobileViewModelPro
     this.navigation?.navigate(routeName, {
       navigationId: this._originNavigationId,
     });
+  }
+
+  async showConfirmDialog(props: UIDialogDisplayProps): Promise<boolean | undefined> {
+    if(props.isDelete){
+      props.confirmText = Lang.localize("action.delete");
+    }
+    const dialogController = this.dialogController;
+    const promise = new Promise<boolean | undefined>((resolve, reject) => {
+      dialogController.onFinished = (data: any) => {
+        resolve(data);
+      };
+    });
+    dialogController.show(props);
+    return promise;
+  }
+
+  dispose(): void {
+    this.dialogController.dispose();
+    super.dispose();
   }
 
   setNavigation(navigation: NavigationProp<any>) {
@@ -121,8 +143,6 @@ export class MobileViewModel<P extends MobileViewModelProps = MobileViewModelPro
     this._stateListener = undefined;
   }
 
+
 }
 
-function _generateNavigationId() {
-  return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
-}

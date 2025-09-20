@@ -2,18 +2,23 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.MobileViewModel = void 0;
 const react_oop_1 = require("react_oop");
+const ui_dialog_controller_1 = require("../../components/dialog/ui_dialog_controller");
 class MobileViewModel extends react_oop_1.BaseViewModel {
+    constructor() {
+        super(...arguments);
+        this.dialogController = new ui_dialog_controller_1.UIDialogController();
+    }
     get _onReturn() {
         var _a;
         return (_a = this.props) === null || _a === void 0 ? void 0 : _a.onReturn;
     }
     async pushScreen(routeName, params) {
-        var _a, _b;
+        var _a;
         const param = Object.assign({}, params);
         (_a = this.navigation) === null || _a === void 0 ? void 0 : _a.navigate(routeName, param);
-        (_b = this.navigation) === null || _b === void 0 ? void 0 : _b.addListener('state', (event) => {
-            console.log('pushScreen_state', event);
-        });
+        // this.navigation?.addListener('state', (event) => {
+        //   console.log('pushScreen_state', event);
+        // });
         return param;
     }
     async popScreen({ value }) {
@@ -26,6 +31,23 @@ class MobileViewModel extends react_oop_1.BaseViewModel {
         (_a = this.navigation) === null || _a === void 0 ? void 0 : _a.navigate(routeName, {
             navigationId: this._originNavigationId,
         });
+    }
+    async showConfirmDialog(props) {
+        if (props.isDelete) {
+            props.confirmText = react_oop_1.Lang.localize("action.delete");
+        }
+        const dialogController = this.dialogController;
+        const promise = new Promise((resolve, reject) => {
+            dialogController.onFinished = (data) => {
+                resolve(data);
+            };
+        });
+        dialogController.show(props);
+        return promise;
+    }
+    dispose() {
+        this.dialogController.dispose();
+        super.dispose();
     }
     setNavigation(navigation) {
         this.navigation = navigation;
@@ -91,6 +113,3 @@ class MobileViewModel extends react_oop_1.BaseViewModel {
     }
 }
 exports.MobileViewModel = MobileViewModel;
-function _generateNavigationId() {
-    return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
-}

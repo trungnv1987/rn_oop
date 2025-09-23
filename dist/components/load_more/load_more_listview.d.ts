@@ -10,6 +10,6 @@ interface LoadMoreListViewProps<T> {
     separator?: ReactNode;
     couldRefresh?: boolean;
 }
-export declare function LoadMoreListView<T>({ controller, itemBuilder, keyExtractor, showsScrollIndicator, contentContainerStyle, separator, couldRefresh, }: LoadMoreListViewProps<T>): import("react/jsx-runtime").JSX.Element | null;
+export declare function LoadMoreListView<T>({ controller, itemBuilder, keyExtractor, endReachedThreshold, showsScrollIndicator, contentContainerStyle, separator, couldRefresh, }: LoadMoreListViewProps<T>): import("react/jsx-runtime").JSX.Element | null;
 export {};
 //# sourceMappingURL=load_more_listview.d.ts.map

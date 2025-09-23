@@ -1,19 +1,7 @@
 import { ReactNode, useCallback, useRef, useState, useMemo } from "react";
-
-import {
-  RecyclerListView,
-  DataProvider,
-  LayoutProvider,
-} from "recyclerlistview";
 import { ItemBuilder, LoadMoreController, ReloadState } from "react_oop";
-import {
-  ActivityIndicator,
-  RefreshControl,
-  useWindowDimensions,
-  View,
-} from "react-native";
+import { ActivityIndicator, FlatList, View } from "react-native";
 import { NotFoundLabel } from "../search/not_found_label";
-import React from "react";
 
 interface LoadMoreListViewProps<T> {
   controller: LoadMoreController<T>;
@@ -30,29 +18,21 @@ export function LoadMoreListView<T>({
   controller,
   itemBuilder,
   keyExtractor,
+  endReachedThreshold,
   showsScrollIndicator,
   contentContainerStyle,
   separator,
   couldRefresh = true,
 }: LoadMoreListViewProps<T>) {
-  const { width } = useWindowDimensions();
-  const rlvRef = useRef<RecyclerListView<any, any>>(null);
-  const defaultDataProvider = useMemo(
-    () =>
-      new DataProvider((a: T, b: T) => {
-        const keyA = keyExtractor?.(a) ?? JSON.stringify(a);
-        const keyB = keyExtractor?.(b) ?? JSON.stringify(b);
-        return keyA !== keyB;
-      }),
-    [keyExtractor]
-  );
-  const [dataProvider, setDataProvider] = useState(() => defaultDataProvider);
+  const listRef = useRef<FlatList<T>>(null);
+  const [items, setItems] = useState<T[]>([]);
   const [hasNext, setHasNext] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
+  const isLoadingMoreRef = useRef(false);
   const _data = () => controller.data;
   const _couldLoadMore = () => _data().couldLoadMore;
   const _isSearching = () => controller.isSearching;
-  const _itemsCount = () => controller.data.items.length;
+  const _itemsCount = () => items.length;
   const _isEmpty = () => _itemsCount() === 0;
 
   controller.onReload = useCallback(
@@ -64,29 +44,17 @@ export function LoadMoreListView<T>({
       setRefreshing(false);
       switch (state) {
         case ReloadState.refreshing:
-          setDataProvider(defaultDataProvider.cloneWithRows(items));
+          setItems(items);
           break;
         case ReloadState.loadingMore:
-          setDataProvider((prevProvider) => prevProvider.cloneWithRows(items));
+          setItems(items);
           break;
         case ReloadState.normal:
-          setDataProvider(defaultDataProvider.cloneWithRows(items));
+          setItems(items);
           break;
       }
     },
-    [defaultDataProvider, _data]
-  );
-
-  const layoutProvider = useMemo(
-    () =>
-      new LayoutProvider(
-        () => "ROW",
-        (_type, dim) => {
-          dim.width = width;
-          dim.height = 50; // just an estimate
-        }
-      ),
-    [width]
+    [_data]
   );
 
   const rowRenderer = useCallback(
@@ -94,7 +62,7 @@ export function LoadMoreListView<T>({
       const isLast = index === _itemsCount() - 1;
       const row = itemBuilder(item);
       return (
-        <View style={{ width: "100%" }} key={keyExtractor?.(item)}>
+        <View style={{ width: "100%" }}>
           {row}
           {(!isLast && separator) ?? separator}
         </View>
@@ -113,18 +81,28 @@ export function LoadMoreListView<T>({
     return null;
   }
   return (
-    <RecyclerListView
-      ref={rlvRef}
+    <FlatList
+      ref={listRef}
       style={style}
-      // Core
-      dataProvider={dataProvider}
-      layoutProvider={layoutProvider}
-      rowRenderer={rowRenderer}
-      // Key flags for dynamic heights:
-      forceNonDeterministicRendering
-      canChangeSize
-      // UX: refresh + load more
-      renderFooter={() =>
+      data={items}
+      keyExtractor={(it, i) => {
+        const key = keyExtractor?.(it) ?? JSON.stringify(it);
+        return typeof key === "string" ? key : String(key ?? i);
+      }}
+      renderItem={({ item, index }) => rowRenderer("ROW", item, index)}
+      showsVerticalScrollIndicator={showsScrollIndicator == true}
+      // Refresh
+      refreshing={couldRefresh ? refreshing : false}
+      onRefresh={
+        couldRefresh
+          ? () => {
+              setRefreshing(true);
+              controller.refresh();
+            }
+          : undefined
+      }
+      // Load more
+      ListFooterComponent={
         hasNext ? (
           <View style={{ alignItems: "center" }}>
             <ActivityIndicator />
@@ -132,30 +110,19 @@ export function LoadMoreListView<T>({
         ) : null
       }
       onEndReached={() => {
-        if (hasNext) {
-          controller.loadMore();
+        if (!hasNext || isLoadingMoreRef.current) return;
+        isLoadingMoreRef.current = true;
+        const maybe = controller.loadMore?.();
+        if (maybe && typeof (maybe as any).finally === "function") {
+          (maybe as Promise<any>).finally(() => {
+            isLoadingMoreRef.current = false;
+          });
+        } else {
+          setTimeout(() => (isLoadingMoreRef.current = false), 300);
         }
       }}
-      onEndReachedThreshold={50}
-      scrollViewProps={{
-        showsVerticalScrollIndicator: showsScrollIndicator == true,
-        ...(couldRefresh && {
-          refreshControl: (
-            <RefreshControl
-              refreshing={refreshing}
-              onRefresh={() => {
-                setRefreshing(true);
-                controller.refresh();
-              }}
-            />
-          ),
-        }),
-      }}
-      // Optional: observe when items finish layout (good for analytics or improving future estimates)
-      // onItemLayout={index => {
-      //   // index has just been measured with its real height.
-      //   // If you want to cache stats and refine your estimates by type, you can do it here.
-      // }}
+      onEndReachedThreshold={endReachedThreshold ?? 0.5}
+      contentContainerStyle={contentContainerStyle}
     />
   );
 }

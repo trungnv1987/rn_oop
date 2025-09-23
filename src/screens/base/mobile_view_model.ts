@@ -10,6 +10,7 @@ interface _MobileViewModel {
   popToScreen(routeName: string): void;
   setNavigation(navigation: NavigationProp<any>): void;
   showConfirmDialog(props: UIDialogDisplayProps): Promise<boolean | undefined>;
+  popScreen(params?: { value?: any }): Promise<void>;
 }
 
 export class MobileViewModel<P extends MobileViewModelProps = MobileViewModelProps> extends BaseViewModel<P> {
@@ -40,8 +41,8 @@ export class MobileViewModel<P extends MobileViewModelProps = MobileViewModelPro
   }
 
   _popedValue?: any;
-  async popScreen({ value }: { value?: any }) {
-    this._popedValue = value;
+  async popScreen(params: { value?: any } = {}) {
+    this._popedValue = params.value;
     this.navigation?.goBack();
 
   }

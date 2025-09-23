@@ -21,9 +21,9 @@ class MobileViewModel extends react_oop_1.BaseViewModel {
         // });
         return param;
     }
-    async popScreen({ value }) {
+    async popScreen(params = {}) {
         var _a;
-        this._popedValue = value;
+        this._popedValue = params.value;
         (_a = this.navigation) === null || _a === void 0 ? void 0 : _a.goBack();
     }
     popToScreen(routeName) {

@@ -15,7 +15,7 @@ export declare class MobileViewModel<P extends MobileViewModelProps = MobileView
     private _originNavigationId;
     pushScreen<T = any>(routeName: string, params?: any): Promise<T | undefined>;
     _popedValue?: any;
-    popScreen({ value }: {
+    popScreen(params?: {
         value?: any;
     }): Promise<void>;
     popToScreen(routeName: string): void;

@@ -1,5 +1,5 @@
-import React from 'react';
-import type { StyleProp, ViewStyle } from 'react-native';
+import React from "react";
+import type { StyleProp, ViewStyle } from "react-native";
 export interface ExpandedProps {
     children?: React.ReactNode;
     style?: StyleProp<ViewStyle>;

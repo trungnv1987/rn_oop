@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react";
+import React, { ReactNode, useMemo } from "react";
 import { View, StyleSheet } from "react-native";
 import type { StyleProp, ViewStyle } from "react-native";
 import { addSeparators } from "../../utils/separator_util";
@@ -82,6 +82,14 @@ function mapAlignContent(value?: WrapAlignment): ViewStyle["alignContent"] {
   }
 }
 
+let GS: any = null;
+try {
+  // @ts-ignore - optional dependency
+  GS = require("@gluestack-ui/themed");
+} catch (e) {
+  GS = null;
+}
+
 export function Wrap({
   children,
   style,
@@ -93,16 +101,26 @@ export function Wrap({
   runSpacing = 0,
   separator,
 }: WrapProps) {
-  const containerStyle: ViewStyle = {
-    flexDirection: direction === "horizontal" ? "row" : "column",
-    flexWrap: "wrap",
-    justifyContent: mapAlignment(alignment),
-    alignItems: mapCrossAxisAlignment(crossAxisAlignment),
-    alignContent: mapAlignContent(runAlignment),
-    gap: spacing,
-    rowGap: runSpacing,
-    columnGap: spacing,
-  };
+  const containerStyle: ViewStyle = useMemo(
+    () => ({
+      flexDirection: direction === "horizontal" ? "row" : "column",
+      flexWrap: "wrap",
+      justifyContent: mapAlignment(alignment),
+      alignItems: mapCrossAxisAlignment(crossAxisAlignment),
+      alignContent: mapAlignContent(runAlignment),
+      gap: spacing,
+      rowGap: runSpacing,
+      columnGap: spacing,
+    }),
+    [
+      direction,
+      alignment,
+      crossAxisAlignment,
+      runAlignment,
+      spacing,
+      runSpacing,
+    ]
+  );
 
   const renderChildren = () => {
     if (!separator || !children) {
@@ -156,6 +174,25 @@ export function Wrap({
       );
     });
   }, [children, spacing, runSpacing, direction, separator]);
+
+  if (GS?.Wrap) {
+    const { Wrap: GSWrap } = GS;
+    return (
+      <GSWrap
+        style={style as any}
+        // Gluestack Wrap supports direction and space props
+        direction={direction === "horizontal" ? "row" : "column"}
+        justifyContent={mapAlignment(alignment)}
+        alignItems={mapCrossAxisAlignment(crossAxisAlignment)}
+        alignContent={mapAlignContent(runAlignment)}
+        space={spacing}
+        rowGap={runSpacing}
+        columnGap={spacing}
+      >
+        {spacing === 0 && runSpacing === 0 ? renderChildren() : wrappedChildren}
+      </GSWrap>
+    );
+  }
 
   return (
     <View style={StyleSheet.compose(containerStyle, style)}>

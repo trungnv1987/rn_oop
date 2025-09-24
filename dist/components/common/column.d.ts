@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import React, { ReactNode } from "react";
 import type { StyleProp, ViewStyle } from "react-native";
 type MainAxisAlignment = "start" | "end" | "center" | "space-between" | "space-around" | "space-evenly";
 type CrossAxisAlignment = "start" | "end" | "center" | "stretch" | "baseline";
@@ -10,6 +10,9 @@ export interface ColumnProps {
     gap?: number;
     separator?: ReactNode;
 }
-export declare function Column({ children, style, mainAxisAlignment, crossAxisAlignment, gap, separator, }: ColumnProps): import("react/jsx-runtime").JSX.Element;
+export declare const Column: React.MemoExoticComponent<{
+    ({ children, style, mainAxisAlignment, crossAxisAlignment, gap, separator, }: ColumnProps): import("react/jsx-runtime").JSX.Element;
+    displayName: string;
+}>;
 export {};
 //# sourceMappingURL=column.d.ts.map

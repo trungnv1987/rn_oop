@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react";
+import React, { ReactNode, useMemo } from "react";
 import { View, StyleSheet } from "react-native";
 import type { StyleProp, ViewStyle } from "react-native";
 import { addSeparators } from "../../utils/separator_util";
@@ -62,7 +62,16 @@ function mapCrossAxisAlignment(
   }
 }
 
-export function Row({
+// Attempt to load gluestack primitives if present
+let GS: any = null;
+try {
+  // @ts-ignore - optional dependency
+  GS = require("@gluestack-ui/themed");
+} catch (e) {
+  GS = null;
+}
+
+const RowComponent = ({
   children,
   style,
   mainAxisAlignment,
@@ -70,35 +79,53 @@ export function Row({
   wrap,
   gap,
   separator,
-}: RowProps) {
-  const containerStyle: ViewStyle = {
-    flexDirection: "row",
-    justifyContent: mapMainAxisAlignment(mainAxisAlignment),
-    alignItems: mapCrossAxisAlignment(crossAxisAlignment),
-    flexWrap: wrap ? "wrap" : "nowrap",
-    // gap is supported on modern RN; ignore if not
-    gap,
-  };
+}: RowProps) => {
+  const containerStyle: ViewStyle = useMemo(
+    () => ({
+      flexDirection: "row",
+      justifyContent: mapMainAxisAlignment(mainAxisAlignment),
+      alignItems: mapCrossAxisAlignment(crossAxisAlignment),
+      flexWrap: wrap ? "wrap" : "nowrap",
+      gap,
+    }),
+    [mainAxisAlignment, crossAxisAlignment, wrap, gap]
+  );
 
-  const renderChildren = () => {
+  const childrenWithSeparators = useMemo(() => {
     if (!separator || !children) {
       return children;
     }
 
-    // Convert children to array if it's not already an array
     const childrenArray = Array.isArray(children) ? children : [children];
-
     if (childrenArray.length <= 1) {
       return children;
     }
-
-    // Use the utility function to add separators
     return addSeparators(childrenArray, separator);
-  };
+  }, [children, separator]);
+
+  if (GS?.HStack) {
+    // Gluestack HStack supports space and flexWrap via props
+    const { HStack } = GS;
+    return (
+      <HStack
+        style={style as any}
+        justifyContent={mapMainAxisAlignment(mainAxisAlignment)}
+        alignItems={mapCrossAxisAlignment(crossAxisAlignment)}
+        space={gap}
+        flexWrap={wrap ? "wrap" : "nowrap"}
+      >
+        {childrenWithSeparators}
+      </HStack>
+    );
+  }
 
   return (
     <View style={StyleSheet.compose(containerStyle, style)}>
-      {renderChildren()}
+      {childrenWithSeparators}
     </View>
   );
-}
+};
+
+RowComponent.displayName = "Row";
+
+export const Row = React.memo(RowComponent);

@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react";
+import React, { ReactNode, useMemo } from "react";
 import { View, StyleSheet } from "react-native";
 import type { StyleProp, ViewStyle } from "react-native";
 import { addSeparators } from "../../utils/separator_util";
@@ -60,40 +60,64 @@ function mapCrossAxisAlignment(
   }
 }
 
-export function Column({
+// Attempt optional gluestack import
+let GS: any = null;
+try {
+  // @ts-ignore - optional dependency
+  GS = require("@gluestack-ui/themed");
+} catch (e) {
+  GS = null;
+}
+
+const ColumnComponent = ({
   children,
   style,
   mainAxisAlignment,
   crossAxisAlignment,
   gap,
   separator,
-}: ColumnProps) {
-  const containerStyle: ViewStyle = {
-    flexDirection: "column",
-    justifyContent: mapMainAxisAlignment(mainAxisAlignment),
-    alignItems: mapCrossAxisAlignment(crossAxisAlignment),
-    gap,
-  };
+}: ColumnProps) => {
+  const containerStyle: ViewStyle = useMemo(
+    () => ({
+      flexDirection: "column",
+      justifyContent: mapMainAxisAlignment(mainAxisAlignment),
+      alignItems: mapCrossAxisAlignment(crossAxisAlignment),
+      gap,
+    }),
+    [mainAxisAlignment, crossAxisAlignment, gap]
+  );
 
   const renderChildren = () => {
     if (!separator || !children) {
       return children;
     }
-
-    // Convert children to array if it's not already an array
     const childrenArray = Array.isArray(children) ? children : [children];
-
     if (childrenArray.length <= 1) {
       return children;
     }
-
-    // Use the utility function to add separators
     return addSeparators(childrenArray, separator);
   };
+
+  if (GS?.VStack) {
+    const { VStack } = GS;
+    return (
+      <VStack
+        style={style as any}
+        justifyContent={mapMainAxisAlignment(mainAxisAlignment)}
+        alignItems={mapCrossAxisAlignment(crossAxisAlignment)}
+        space={gap}
+      >
+        {renderChildren()}
+      </VStack>
+    );
+  }
 
   return (
     <View style={StyleSheet.compose(containerStyle, style)}>
       {renderChildren()}
     </View>
   );
-}
+};
+
+ColumnComponent.displayName = "Column";
+export const Column = React.memo(ColumnComponent);

@@ -38,5 +38,6 @@ commit:
 	git push
 
 
-react_oop:
+reactoop:
 	npm i react_oop --force
+

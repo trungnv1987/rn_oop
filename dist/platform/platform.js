@@ -9,21 +9,21 @@ const react_native_encrypted_storage_1 = __importDefault(require("react-native-e
 const async_storage_1 = __importDefault(require("@react-native-async-storage/async-storage"));
 class PlatformImpl {
     static async init() {
-        const secureStorage = {
+        this.secureStorage = {
             getItem: react_native_encrypted_storage_1.default.getItem,
             setItem: react_native_encrypted_storage_1.default.setItem,
             removeItem: react_native_encrypted_storage_1.default.removeItem,
             clear: react_native_encrypted_storage_1.default.clear,
         };
-        const localStorage = {
+        this.localStorage = {
             getItem: async_storage_1.default.getItem,
             setItem: async_storage_1.default.setItem,
             removeItem: async_storage_1.default.removeItem,
             clear: async_storage_1.default.clear,
         };
         await react_oop_1.AppStorage.init({
-            secureStorage,
-            localStorage,
+            secureStorage: this.secureStorage,
+            localStorage: this.localStorage,
         });
     }
 }

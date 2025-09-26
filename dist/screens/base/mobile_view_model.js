@@ -107,9 +107,22 @@ class MobileViewModel extends react_oop_1.BaseViewModel {
         (_a = this._onReturn) === null || _a === void 0 ? void 0 : _a.call(this, this._popedValue);
     }
     _cleanupNavigationListeners() {
-        this._focusListener = undefined;
-        this._blurListener = undefined;
-        this._stateListener = undefined;
+        var _a, _b, _c;
+        const focusListener = this._focusListener;
+        const blurListener = this._blurListener;
+        const stateListener = this._stateListener;
+        if (focusListener) {
+            (_a = this.navigation) === null || _a === void 0 ? void 0 : _a.removeListener('focus', focusListener);
+            this._focusListener = undefined;
+        }
+        if (blurListener) {
+            (_b = this.navigation) === null || _b === void 0 ? void 0 : _b.removeListener('blur', blurListener);
+            this._blurListener = undefined;
+        }
+        if (stateListener) {
+            (_c = this.navigation) === null || _c === void 0 ? void 0 : _c.removeListener('state', stateListener);
+            this._stateListener = undefined;
+        }
     }
 }
 exports.MobileViewModel = MobileViewModel;

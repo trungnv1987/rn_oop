@@ -11,10 +11,8 @@ function useViewModel(viewModel) {
     const navigation = (0, native_1.useNavigation)();
     const viewModelRef = (0, react_1.useRef)(viewModel);
     (0, react_1.useEffect)(() => {
-        if (viewModelRef.current) {
-            viewModelRef.current.setNavigation(navigation);
-        }
+        viewModel.setNavigation(navigation);
     }, [navigation]);
-    return viewModelRef.current;
+    return viewModel;
 }
 exports.useViewModel = useViewModel;

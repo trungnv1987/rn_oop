@@ -139,9 +139,21 @@ export class MobileViewModel<P extends MobileViewModelProps = MobileViewModelPro
     this._onReturn?.(this._popedValue);
   }
   private _cleanupNavigationListeners() {
-    this._focusListener = undefined;
-    this._blurListener = undefined;
-    this._stateListener = undefined;
+    const focusListener = this._focusListener;
+    const blurListener = this._blurListener;
+    const stateListener = this._stateListener;
+    if(focusListener){
+      this.navigation?.removeListener('focus', focusListener);
+      this._focusListener = undefined;
+    }    
+    if(blurListener){
+      this.navigation?.removeListener('blur', blurListener);
+      this._blurListener = undefined;
+    }
+    if(stateListener){
+      this.navigation?.removeListener('state', stateListener);
+      this._stateListener = undefined;
+    }
   }
 
 

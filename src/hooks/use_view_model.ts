@@ -12,10 +12,8 @@ export function useViewModel<T extends MobileViewModel>(viewModel: T): T {
   const viewModelRef = useRef<T>(viewModel);
 
   useEffect(() => {
-    if (viewModelRef.current) {
-      viewModelRef.current.setNavigation(navigation);
-    }
+    viewModel.setNavigation(navigation);
   }, [navigation]);
 
-  return viewModelRef.current;
+  return viewModel;
 }

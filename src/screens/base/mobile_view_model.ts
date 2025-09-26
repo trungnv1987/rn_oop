@@ -156,6 +156,5 @@ export class MobileViewModel<P extends MobileViewModelProps = MobileViewModelPro
     }
   }
 
-
 }
 

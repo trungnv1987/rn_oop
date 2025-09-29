@@ -17,7 +17,7 @@ function UIPageIndicatorExample() {
     const controller = new ui_page_view_controller_1.UIPageViewController();
     const handlePagePress = (page) => {
         setCurrentPage(page);
-        console.log("Page pressed:", page);
+        // console.log("Page pressed:", page);
     };
     const goToNextPage = () => {
         const nextPage = Math.min(currentPage + 1, 4);

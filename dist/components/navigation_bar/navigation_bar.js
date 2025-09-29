@@ -20,7 +20,7 @@ function NavigationBar({ title, leftButton, rightButton, showLargeTitle = false,
         loadMoreController === null || loadMoreController === void 0 ? void 0 : loadMoreController.setSearching(false);
     };
     const debouncedSearch = (0, react_oop_1.useDebounce)((query) => {
-        console.log("debouncedSearch", query);
+        // console.log("debouncedSearch", query);
         if (onSearching) {
             onSearching(query);
         }

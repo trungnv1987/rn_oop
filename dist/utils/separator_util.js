@@ -14,11 +14,14 @@ const react_native_1 = require("react-native");
  * @returns Array with separators inserted between items
  */
 function addSeparators(items, separator) {
-    console.log('addSeparators - items length:', items === null || items === void 0 ? void 0 : items.length);
-    console.log('addSeparators - separator:', separator);
-    console.log('addSeparators - separator isValidElement:', react_1.default.isValidElement(separator));
+    // console.log('addSeparators - items length:', items?.length);
+    // console.log('addSeparators - separator:', separator);
+    // console.log(
+    //   'addSeparators - separator isValidElement:',
+    //   React.isValidElement(separator),
+    // );
     if (!items || items.length <= 1) {
-        console.log('addSeparators - returning original items (length <= 1)');
+        // console.log('addSeparators - returning original items (length <= 1)');
         return items;
     }
     const result = [];
@@ -27,13 +30,13 @@ function addSeparators(items, separator) {
         result.push(item);
         // Add separator between items (not after the last item)
         if (index < items.length - 1) {
-            console.log(`addSeparators - adding separator at index ${index}`);
+            // console.log(`addSeparators - adding separator at index ${index}`);
             // Check if separator is a React element that can be cloned
             if (react_1.default.isValidElement(separator)) {
                 const clonedSeparator = react_1.default.cloneElement(separator, {
                     key: `separator-${index}`,
                 });
-                console.log('addSeparators - cloned separator:', clonedSeparator);
+                // console.log('addSeparators - cloned separator:', clonedSeparator);
                 result.push(clonedSeparator);
             }
             else {
@@ -42,7 +45,7 @@ function addSeparators(items, separator) {
             }
         }
     });
-    console.log('addSeparators - final result length:', result.length);
+    // console.log('addSeparators - final result length:', result.length);
     return result;
 }
 exports.addSeparators = addSeparators;

@@ -30,7 +30,7 @@ export function PageIndicatorExample() {
   const handlePageSelected = (event: any) => {
     const { position } = event.nativeEvent;
     setCurrentPage(position);
-    console.log("Page selected:", position);
+    // console.log("Page selected:", position);
   };
 
   const handlePageScrollStateChanged = (event: any) => {

@@ -198,7 +198,7 @@ class UIPageViewController {
      */
     scrollToBottom(animated = true) {
         // This would need to be implemented per page if needed
-        console.log('Scroll to bottom - implement per page');
+        // console.log('Scroll to bottom - implement per page');
     }
     /**
      * Scroll by offset (for individual page content)

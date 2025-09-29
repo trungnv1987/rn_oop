@@ -41,7 +41,7 @@ export function PageViewExample() {
     setIsScrolling(
       pageScrollState === "dragging" || pageScrollState === "settling"
     );
-    console.log("Page scroll state:", pageScrollState);
+    // console.log("Page scroll state:", pageScrollState);
   };
 
   const handleScrollToTop = () => {

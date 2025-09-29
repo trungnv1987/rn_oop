@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 /**
  * Adds separators between ReactNode elements in an array
  * @param items Array of ReactNode elements

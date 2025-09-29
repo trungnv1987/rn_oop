@@ -1,5 +1,5 @@
-import React from 'react';
-import { View } from 'react-native';
+import React from "react";
+import { View } from "react-native";
 
 /**
  * Adds separators between ReactNode elements in an array
@@ -9,17 +9,17 @@ import { View } from 'react-native';
  */
 export function addSeparators<T extends React.ReactNode>(
   items: T[],
-  separator: React.ReactNode,
+  separator: React.ReactNode
 ): React.ReactNode[] {
-  console.log('addSeparators - items length:', items?.length);
-  console.log('addSeparators - separator:', separator);
-  console.log(
-    'addSeparators - separator isValidElement:',
-    React.isValidElement(separator),
-  );
+  // console.log('addSeparators - items length:', items?.length);
+  // console.log('addSeparators - separator:', separator);
+  // console.log(
+  //   'addSeparators - separator isValidElement:',
+  //   React.isValidElement(separator),
+  // );
 
   if (!items || items.length <= 1) {
-    console.log('addSeparators - returning original items (length <= 1)');
+    // console.log('addSeparators - returning original items (length <= 1)');
     return items;
   }
 
@@ -31,13 +31,13 @@ export function addSeparators<T extends React.ReactNode>(
 
     // Add separator between items (not after the last item)
     if (index < items.length - 1) {
-      console.log(`addSeparators - adding separator at index ${index}`);
+      // console.log(`addSeparators - adding separator at index ${index}`);
       // Check if separator is a React element that can be cloned
       if (React.isValidElement(separator)) {
         const clonedSeparator = React.cloneElement(separator, {
           key: `separator-${index}`,
         });
-        console.log('addSeparators - cloned separator:', clonedSeparator);
+        // console.log('addSeparators - cloned separator:', clonedSeparator);
         result.push(clonedSeparator);
       } else {
         // If separator is not a React element, just add it as is
@@ -46,7 +46,7 @@ export function addSeparators<T extends React.ReactNode>(
     }
   });
 
-  console.log('addSeparators - final result length:', result.length);
+  // console.log('addSeparators - final result length:', result.length);
   return result;
 }
 
@@ -58,7 +58,7 @@ export function addSeparators<T extends React.ReactNode>(
  */
 export function addVerticalSpacing(
   items: React.ReactNode[],
-  spacing: number,
+  spacing: number
 ): React.ReactNode[] {
   if (!items || items.length <= 1) {
     return items;
@@ -75,7 +75,7 @@ export function addVerticalSpacing(
       result.push(
         <React.Fragment key={`vertical-spacing-${index}`}>
           <View style={{ height: spacing }} />
-        </React.Fragment>,
+        </React.Fragment>
       );
     }
   });
@@ -91,7 +91,7 @@ export function addVerticalSpacing(
  */
 export function addHorizontalSpacing(
   items: React.ReactNode[],
-  spacing: number,
+  spacing: number
 ): React.ReactNode[] {
   if (!items || items.length <= 1) {
     return items;
@@ -108,7 +108,7 @@ export function addHorizontalSpacing(
       result.push(
         <React.Fragment key={`horizontal-spacing-${index}`}>
           <View style={{ width: spacing }} />
-        </React.Fragment>,
+        </React.Fragment>
       );
     }
   });

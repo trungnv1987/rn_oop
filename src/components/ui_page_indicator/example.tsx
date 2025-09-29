@@ -16,7 +16,7 @@ export function UIPageIndicatorExample() {
 
   const handlePagePress = (page: number) => {
     setCurrentPage(page);
-    console.log("Page pressed:", page);
+    // console.log("Page pressed:", page);
   };
 
   const goToNextPage = () => {

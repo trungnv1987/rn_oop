@@ -34,7 +34,7 @@ function PageViewExample() {
     const handlePageScrollStateChanged = (event) => {
         const { pageScrollState } = event.nativeEvent;
         setIsScrolling(pageScrollState === "dragging" || pageScrollState === "settling");
-        console.log("Page scroll state:", pageScrollState);
+        // console.log("Page scroll state:", pageScrollState);
     };
     const handleScrollToTop = () => {
         react_native_1.Alert.alert("Scroll Event", "Scrolled to top!");

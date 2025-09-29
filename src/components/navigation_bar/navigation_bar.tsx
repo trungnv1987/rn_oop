@@ -47,7 +47,7 @@ export function NavigationBar({
   };
 
   const debouncedSearch = useDebounce((query: string) => {
-    console.log("debouncedSearch", query);
+    // console.log("debouncedSearch", query);
     if (onSearching) {
       onSearching(query);
     } else {

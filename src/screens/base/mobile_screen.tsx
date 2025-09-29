@@ -17,9 +17,10 @@ export function MobileScreen<VM extends MobileViewModel>({
 }: MobileScreenProps<VM>) {
   return (
     <AppScreen<VM> viewModel={viewModel} viewModelContext={viewModelContext}>
-      <UIAvoidKeyboard>
+      {children}
+      {/* <UIAvoidKeyboard>
         <UILoading cubit={viewModel.loadingCubit}>{children}</UILoading>
-      </UIAvoidKeyboard>
+      </UIAvoidKeyboard> */}
       <UIDialog controller={viewModel.dialogController} />
     </AppScreen>
   );

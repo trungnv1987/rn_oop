@@ -3,6 +3,7 @@ import { AppScreen } from "react_oop";
 import { UIAvoidKeyboard, UILoading } from "../../components";
 import { MobileViewModel } from "./mobile_view_model";
 import { UIDialog } from "../../components/dialog/ui_dialog";
+import { KeyboardAvoidingView } from "react-native";
 
 export interface MobileScreenProps<VM extends MobileViewModel> {
   viewModel: VM;
@@ -16,12 +17,18 @@ export function MobileScreen<VM extends MobileViewModel>({
   children,
 }: MobileScreenProps<VM>) {
   return (
-    <AppScreen<VM> viewModel={viewModel} viewModelContext={viewModelContext}>
-      {children}
-      {/* <UIAvoidKeyboard>
+    <KeyboardAvoidingView
+      style={{ flex: 1 }}
+      behavior={"padding"}
+      keyboardVerticalOffset={100}
+    >
+      <AppScreen<VM> viewModel={viewModel} viewModelContext={viewModelContext}>
+        {children}
+        {/* <UIAvoidKeyboard>
         <UILoading cubit={viewModel.loadingCubit}>{children}</UILoading>
       </UIAvoidKeyboard> */}
-      <UIDialog controller={viewModel.dialogController} />
-    </AppScreen>
+        <UIDialog controller={viewModel.dialogController} />
+      </AppScreen>
+    </KeyboardAvoidingView>
   );
 }

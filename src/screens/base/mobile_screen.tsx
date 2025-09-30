@@ -1,4 +1,4 @@
-import  { Context, ReactNode } from "react";
+import { Context, ReactNode } from "react";
 import { AppScreen } from "react_oop";
 import { MobileViewModel } from "./mobile_view_model";
 import { UIDialog } from "../../components/dialog/ui_dialog";
@@ -9,6 +9,7 @@ export interface MobileScreenProps<VM extends MobileViewModel> {
   viewModelContext: Context<VM | undefined>;
   children: ReactNode;
   avoidKeyboard?: boolean;
+  keyboardVerticalOffset?: number;
 }
 
 export function MobileScreen<VM extends MobileViewModel>({
@@ -16,6 +17,7 @@ export function MobileScreen<VM extends MobileViewModel>({
   viewModelContext,
   children,
   avoidKeyboard = true,
+  keyboardVerticalOffset = 0,
 }: MobileScreenProps<VM>) {
   const behavior = Platform.OS === "ios" ? "padding" : "height";
 
@@ -30,7 +32,11 @@ export function MobileScreen<VM extends MobileViewModel>({
   );
   if (avoidKeyboard) {
     return (
-      <KeyboardAvoidingView style={{ flex: 1 }} behavior={behavior}>
+      <KeyboardAvoidingView
+        style={{ flex: 1 }}
+        behavior={behavior}
+        keyboardVerticalOffset={keyboardVerticalOffset}
+      >
         {screen}
       </KeyboardAvoidingView>
     );

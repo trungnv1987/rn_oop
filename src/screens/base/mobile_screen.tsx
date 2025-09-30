@@ -16,11 +16,7 @@ export function MobileScreen<VM extends MobileViewModel>({
   viewModel,
   viewModelContext,
   children,
-  avoidKeyboard = true,
-  keyboardVerticalOffset = 0,
 }: MobileScreenProps<VM>) {
-  const behavior = Platform.OS === "ios" ? "padding" : "height";
-
   const screen = (
     <AppScreen<VM> viewModel={viewModel} viewModelContext={viewModelContext}>
       {children}
@@ -30,16 +26,27 @@ export function MobileScreen<VM extends MobileViewModel>({
       <UIDialog controller={viewModel.dialogController} />
     </AppScreen>
   );
-  if (avoidKeyboard) {
-    return (
-      <KeyboardAvoidingView
-        style={{ flex: 1 }}
-        behavior={behavior}
-        keyboardVerticalOffset={keyboardVerticalOffset}
-      >
-        {screen}
-      </KeyboardAvoidingView>
-    );
-  }
   return screen;
+}
+
+export function KeyboardAvoidingScreen<VM extends MobileViewModel>(
+  props: MobileScreenProps<VM>
+) {
+  const behavior = Platform.OS === "ios" ? "padding" : "height";
+
+  return (
+    <KeyboardAvoidingView
+      style={{ flex: 1 }}
+      behavior={behavior}
+      keyboardVerticalOffset={props.keyboardVerticalOffset}
+    >
+      <MobileScreen
+        viewModel={props.viewModel}
+        viewModelContext={props.viewModelContext}
+        avoidKeyboard={false}
+      >
+        {props.children}
+      </MobileScreen>
+    </KeyboardAvoidingView>
+  );
 }

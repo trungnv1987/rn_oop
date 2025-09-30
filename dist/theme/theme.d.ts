@@ -1,4 +1,5 @@
 export interface ThemeColors {
+    card: string;
     background: string;
     surface: string;
     surfaceVariant: string;

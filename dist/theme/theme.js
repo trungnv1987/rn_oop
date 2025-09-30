@@ -17,6 +17,7 @@ const borderRadius = {
 exports.lightTheme = {
     colors: {
         // Background colors
+        card: "white",
         background: "#FFFFFF",
         surface: "#f6f8fa",
         surfaceVariant: "#F1F3F4",
@@ -75,6 +76,7 @@ exports.darkTheme = {
         background: "#000000",
         surface: "#1a1a1a",
         surfaceVariant: "#2d2d2d",
+        card: "white",
         // Text colors
         primary: "#90CAF9",
         secondary: "#B0BEC5",

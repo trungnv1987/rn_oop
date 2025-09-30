@@ -1,5 +1,6 @@
 export interface ThemeColors {
   // Background colors
+  card: string;
   background: string;
   surface: string;
   surfaceVariant: string;
@@ -60,6 +61,7 @@ export interface Theme {
 export const lightTheme: Theme = {
   colors: {
     // Background colors
+    card: "white",
     background: "#FFFFFF",
     surface: "#f6f8fa",
     surfaceVariant: "#F1F3F4",
@@ -125,6 +127,7 @@ export const darkTheme: Theme = {
     background: "#000000",
     surface: "#1a1a1a",
     surfaceVariant: "#2d2d2d",
+    card: "white",
 
     // Text colors
     primary: "#90CAF9",

@@ -7,6 +7,10 @@ const ui_dialog_1 = require("../../components/dialog/ui_dialog");
 const react_native_1 = require("react-native");
 function MobileScreen({ viewModel, viewModelContext, children, avoidKeyboard = true, }) {
     const behavior = react_native_1.Platform.OS === "ios" ? "padding" : "height";
-    return ((0, jsx_runtime_1.jsxs)(react_oop_1.AppScreen, Object.assign({ viewModel: viewModel, viewModelContext: viewModelContext }, { children: [avoidKeyboard ? ((0, jsx_runtime_1.jsx)(react_native_1.KeyboardAvoidingView, Object.assign({ style: { flex: 1 }, behavior: behavior }, { children: children }))) : (children), (0, jsx_runtime_1.jsx)(ui_dialog_1.UIDialog, { controller: viewModel.dialogController })] })));
+    const screen = ((0, jsx_runtime_1.jsxs)(react_oop_1.AppScreen, Object.assign({ viewModel: viewModel, viewModelContext: viewModelContext }, { children: [children, (0, jsx_runtime_1.jsx)(ui_dialog_1.UIDialog, { controller: viewModel.dialogController })] })));
+    if (avoidKeyboard) {
+        return ((0, jsx_runtime_1.jsx)(react_native_1.KeyboardAvoidingView, Object.assign({ style: { flex: 1 }, behavior: behavior }, { children: screen })));
+    }
+    return screen;
 }
 exports.MobileScreen = MobileScreen;

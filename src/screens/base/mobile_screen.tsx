@@ -17,18 +17,18 @@ export function MobileScreen<VM extends MobileViewModel>({
   children,
 }: MobileScreenProps<VM>) {
   return (
-    <KeyboardAvoidingView
-      style={{ flex: 1 }}
-      behavior={"padding"}
-      keyboardVerticalOffset={100}
-    >
-      <AppScreen<VM> viewModel={viewModel} viewModelContext={viewModelContext}>
+    <AppScreen<VM> viewModel={viewModel} viewModelContext={viewModelContext}>
+      <KeyboardAvoidingView
+        style={{ flex: 1 }}
+        behavior={"padding"}
+        // keyboardVerticalOffset={100}
+      >
         {children}
-        {/* <UIAvoidKeyboard>
+      </KeyboardAvoidingView>
+      {/* <UIAvoidKeyboard>
         <UILoading cubit={viewModel.loadingCubit}>{children}</UILoading>
       </UIAvoidKeyboard> */}
-        <UIDialog controller={viewModel.dialogController} />
-      </AppScreen>
-    </KeyboardAvoidingView>
+      <UIDialog controller={viewModel.dialogController} />
+    </AppScreen>
   );
 }

@@ -4,6 +4,7 @@ export interface MobileScreenProps<VM extends MobileViewModel> {
     viewModel: VM;
     viewModelContext: Context<VM | undefined>;
     children: ReactNode;
+    avoidKeyboard?: boolean;
 }
-export declare function MobileScreen<VM extends MobileViewModel>({ viewModel, viewModelContext, children, }: MobileScreenProps<VM>): import("react/jsx-runtime").JSX.Element;
+export declare function MobileScreen<VM extends MobileViewModel>({ viewModel, viewModelContext, children, avoidKeyboard, }: MobileScreenProps<VM>): import("react/jsx-runtime").JSX.Element;
 //# sourceMappingURL=mobile_screen.d.ts.map

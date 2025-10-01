@@ -94,43 +94,43 @@ export class MobileViewModel<P extends MobileViewModelProps = MobileViewModelPro
     if (!this.navigation) return;
 
     // Clean up existing listeners
-    // this._cleanupNavigationListeners();
+    this._cleanupNavigationListeners();
 
-    // // Listen for when this screen comes into focus (viewDidAppear)
-    // this._focusListener = this.navigation.addListener('focus', () => {
-    //   if (this._isCreated == undefined) {
-    //     this.viewDidAppear(true);
-    //     this._isCreated = true;
-    //   } else {
-    //     this.viewDidAppear(false);
-    //   }
+    // Listen for when this screen comes into focus (viewDidAppear)
+    this._focusListener = this.navigation.addListener('focus', () => {
+      if (this._isCreated == undefined) {
+        this.viewDidAppear(true);
+        this._isCreated = true;
+      } else {
+        this.viewDidAppear(false);
+      }
 
-    // });
+    });
 
-    // // Listen for when this screen goes out of focus (viewDidDisappear)
-    // this._blurListener = this.navigation.addListener('blur', () => {
-    //   const currentState = this.navigation?.getState();
-    //   const routes = currentState?.routes || [];
+    // Listen for when this screen goes out of focus (viewDidDisappear)
+    this._blurListener = this.navigation.addListener('blur', () => {
+      const currentState = this.navigation?.getState();
+      const routes = currentState?.routes || [];
 
-    //   // Check if current route key still exists in the navigation stack
-    //   const routeExists = routes.some(route => route.key === this._currentRouteKey);
-    //   const isDismissed = !routeExists && this._currentRouteKey != undefined;
-    //   this.viewDidDisappear(isDismissed);
+      // Check if current route key still exists in the navigation stack
+      const routeExists = routes.some(route => route.key === this._currentRouteKey);
+      const isDismissed = !routeExists && this._currentRouteKey != undefined;
+      this.viewDidDisappear(isDismissed);
 
-    //   // Check if this blur event is due to this screen being popped
-    //   // We need to check this after viewDidDisappear to ensure proper lifecycle order
+      // Check if this blur event is due to this screen being popped
+      // We need to check this after viewDidDisappear to ensure proper lifecycle order
 
-    // });
+    });
 
-    // // Listen for navigation state changes (push/pop completion)
-    // this._stateListener = this.navigation.addListener('state', (event) => {
-    //   // Log navigation state changes for debugging
-    //   const currentState = this.navigation?.getState();
-    //   const routes = currentState?.routes || [];
-    //   const routeExists = routes.some(route => route.key === this._currentRouteKey);
+    // Listen for navigation state changes (push/pop completion)
+    this._stateListener = this.navigation.addListener('state', (event) => {
+      // Log navigation state changes for debugging
+      const currentState = this.navigation?.getState();
+      const routes = currentState?.routes || [];
+      const routeExists = routes.some(route => route.key === this._currentRouteKey);
 
-    //   // console.log(`${this.constructor.name}: NavigationStateChanged - RouteKey: ${this._currentRouteKey}, Exists: ${routeExists}, Total Routes: ${routes.length}`);
-    // });
+      // console.log(`${this.constructor.name}: NavigationStateChanged - RouteKey: ${this._currentRouteKey}, Exists: ${routeExists}, Total Routes: ${routes.length}`);
+    });
 
   }
 

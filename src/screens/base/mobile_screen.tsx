@@ -20,7 +20,7 @@ export function MobileScreen<VM extends MobileViewModel>({
 }: MobileScreenProps<VM>) {
   const screen = (
     <AppScreen<VM> viewModel={viewModel} viewModelContext={viewModelContext}>
-      <View style={{ flex: 1, padding: sizes.md }}>{children}</View>
+      {children}
       {/* <UIAvoidKeyboard>
         <UILoading cubit={viewModel.loadingCubit}>{children}</UILoading>
       </UIAvoidKeyboard> */}

@@ -33,6 +33,9 @@ __exportStar(require("./load_more/load_more_listview_builder"), exports);
 __exportStar(require("./load_more/load_more_listview"), exports);
 // Loading Components
 __exportStar(require("./loading/ui_loading"), exports);
+// Dialog Components
+__exportStar(require("./dialog/ui_dialog"), exports);
+__exportStar(require("./dialog/ui_dialog_controller"), exports);
 // Navigation Components
 __exportStar(require("./navigation_bar/navigation_bar"), exports);
 // Search Components

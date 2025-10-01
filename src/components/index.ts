@@ -24,6 +24,10 @@ export * from './load_more/load_more_listview';
 // Loading Components
 export * from './loading/ui_loading';
 
+// Dialog Components
+export * from './dialog/ui_dialog';
+export * from './dialog/ui_dialog_controller';
+
 // Navigation Components
 export * from './navigation_bar/navigation_bar';
 

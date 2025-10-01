@@ -10,6 +10,8 @@ export * from './input/input';
 export * from './load_more/load_more_listview_builder';
 export * from './load_more/load_more_listview';
 export * from './loading/ui_loading';
+export * from './dialog/ui_dialog';
+export * from './dialog/ui_dialog_controller';
 export * from './navigation_bar/navigation_bar';
 export * from './search/not_found_label';
 export * from './separator/separator';

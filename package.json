@@ -61,7 +61,8 @@
     "react-native-root-toast": "^4.0.1",
     "react-native-screens": "^4.14.0",
     "react-native-svg": "^15.12.1",
-    "recyclerlistview": "^4.2.3"
+    "recyclerlistview": "^4.2.3",
+    "zustand": "^5.0.8"
   },
   "dependencies": {
     "lucide-react-native": "^0.539.0",

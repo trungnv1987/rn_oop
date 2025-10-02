@@ -1,5 +1,17 @@
 import { GenericCallback, GenericCubit } from "react_oop";
+import { create } from 'zustand';
 
+interface _UIDialogControllerState {
+    props?: UIDialogDisplayProps;
+    setProps: (props: UIDialogDisplayProps) => void;
+}
+
+
+export const _uiDialogControllerStore = create<_UIDialogControllerState>(set => ({
+    props: undefined,
+    setProps: (props: UIDialogDisplayProps) => set({ props }),
+  }));
+  
 
 export interface UIDialogDisplayProps {
     title?: string;
@@ -9,6 +21,7 @@ export interface UIDialogDisplayProps {
     
     dismissible?: boolean;
     isDelete?: boolean;
+    input?: string;
 }
 
 interface _UIDialogController{

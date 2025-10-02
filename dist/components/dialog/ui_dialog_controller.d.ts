@@ -1,4 +1,9 @@
 import { GenericCallback, GenericCubit } from "react_oop";
+interface _UIDialogControllerState {
+    props?: UIDialogDisplayProps;
+    setProps: (props: UIDialogDisplayProps) => void;
+}
+export declare const _uiDialogControllerStore: import("zustand").UseBoundStore<import("zustand").StoreApi<_UIDialogControllerState>>;
 export interface UIDialogDisplayProps {
     title?: string;
     message?: string;
@@ -6,6 +11,7 @@ export interface UIDialogDisplayProps {
     cancelText?: string;
     dismissible?: boolean;
     isDelete?: boolean;
+    input?: string;
 }
 interface _UIDialogController {
     dispose(): void;

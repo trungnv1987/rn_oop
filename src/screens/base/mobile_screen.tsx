@@ -4,6 +4,7 @@ import { MobileViewModel } from "./mobile_view_model";
 import { UIDialog } from "../../components/dialog/ui_dialog";
 import { KeyboardAvoidingView, Platform, View } from "react-native";
 import { sizes } from "../../styles";
+import Toast from "react-native-toast-message";
 
 export interface MobileScreenProps<VM extends MobileViewModel> {
   viewModel: VM;
@@ -25,6 +26,7 @@ export function MobileScreen<VM extends MobileViewModel>({
         <UILoading cubit={viewModel.loadingCubit}>{children}</UILoading>
       </UIAvoidKeyboard> */}
       <UIDialog controller={viewModel.dialogController} />
+      <Toast />
     </AppScreen>
   );
   return screen;

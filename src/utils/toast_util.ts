@@ -1,13 +1,19 @@
 import { defaultTheme } from '../theme/theme';
-import Toast from 'react-native-root-toast';
+import Toast from 'react-native-toast-message';
 
 export class ToastUtil {
-  static success(message: string, {position = Toast.positions.BOTTOM, duration = Toast.durations.LONG}: {position?: number, duration?: number} = {}) {
-    Toast.show(message, {
-      duration: duration,
-      position: position,
-      backgroundColor: defaultTheme.colors.success,      
-      containerStyle: { width: '100%' },
+  static success(message: string) {
+    Toast.show({
+      type: 'success',
+      text1: message,
     });
   }
+
+  static error(message: string) {
+    Toast.show({
+      type: 'error',
+      text1: message,
+    });
+  }
+  
 }

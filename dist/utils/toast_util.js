@@ -4,15 +4,18 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ToastUtil = void 0;
-const theme_1 = require("../theme/theme");
-const react_native_root_toast_1 = __importDefault(require("react-native-root-toast"));
+const react_native_toast_message_1 = __importDefault(require("react-native-toast-message"));
 class ToastUtil {
-    static success(message, { position = react_native_root_toast_1.default.positions.BOTTOM, duration = react_native_root_toast_1.default.durations.LONG } = {}) {
-        react_native_root_toast_1.default.show(message, {
-            duration: duration,
-            position: position,
-            backgroundColor: theme_1.defaultTheme.colors.success,
-            containerStyle: { width: '100%' },
+    static success(message) {
+        react_native_toast_message_1.default.show({
+            type: 'success',
+            text1: message,
+        });
+    }
+    static error(message) {
+        react_native_toast_message_1.default.show({
+            type: 'error',
+            text1: message,
         });
     }
 }

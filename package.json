@@ -58,7 +58,7 @@
     "react-native-pager-view": "^6.4.1",
     "react-native-paper": "^5.14.5",
     "react-native-root-siblings": "^5.0.1",
-    "react-native-root-toast": "^4.0.1",
+    "react-native-toast-message": "^2.3.3",
     "react-native-screens": "^4.14.0",
     "react-native-svg": "^15.12.1",
     "recyclerlistview": "^4.2.3",

@@ -10,12 +10,14 @@ class ToastUtil {
         react_native_toast_message_1.default.show({
             type: 'success',
             text1: message,
+            position: 'bottom',
         });
     }
     static error(message) {
         react_native_toast_message_1.default.show({
             type: 'error',
             text1: message,
+            position: 'bottom',
         });
     }
 }

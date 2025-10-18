@@ -6,6 +6,7 @@ export class ToastUtil {
     Toast.show({
       type: 'success',
       text1: message,
+      position: 'bottom',
     });
   }
 
@@ -13,6 +14,7 @@ export class ToastUtil {
     Toast.show({
       type: 'error',
       text1: message,
+      position: 'bottom',
     });
   }
   

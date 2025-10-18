@@ -1,4 +1,3 @@
-import { defaultTheme } from '../theme/theme';
 import Toast from 'react-native-toast-message';
 
 export class ToastUtil {

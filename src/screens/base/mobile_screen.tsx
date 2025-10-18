@@ -26,7 +26,7 @@ export function MobileScreen<VM extends MobileViewModel>({
         <UILoading cubit={viewModel.loadingCubit}>{children}</UILoading>
       </UIAvoidKeyboard> */}
       <UIDialog controller={viewModel.dialogController} />
-      <Toast />
+      <Toast bottomOffset={50} />
     </AppScreen>
   );
   return screen;

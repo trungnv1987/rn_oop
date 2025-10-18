@@ -10,7 +10,7 @@ const ui_dialog_1 = require("../../components/dialog/ui_dialog");
 const react_native_1 = require("react-native");
 const react_native_toast_message_1 = __importDefault(require("react-native-toast-message"));
 function MobileScreen({ viewModel, viewModelContext, children, }) {
-    const screen = ((0, jsx_runtime_1.jsxs)(react_oop_1.AppScreen, Object.assign({ viewModel: viewModel, viewModelContext: viewModelContext }, { children: [children, (0, jsx_runtime_1.jsx)(ui_dialog_1.UIDialog, { controller: viewModel.dialogController }), (0, jsx_runtime_1.jsx)(react_native_toast_message_1.default, {})] })));
+    const screen = ((0, jsx_runtime_1.jsxs)(react_oop_1.AppScreen, Object.assign({ viewModel: viewModel, viewModelContext: viewModelContext }, { children: [children, (0, jsx_runtime_1.jsx)(ui_dialog_1.UIDialog, { controller: viewModel.dialogController }), (0, jsx_runtime_1.jsx)(react_native_toast_message_1.default, { bottomOffset: 50 })] })));
     return screen;
 }
 exports.MobileScreen = MobileScreen;
